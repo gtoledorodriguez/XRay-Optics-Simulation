@@ -25,16 +25,19 @@ second_grating_distance = 5e7 #nm
 wavelength = .56 #nm
 U_0 = 1 #?
 wavenumber = 2 * np.pi / wavelength
+slitHeight = 10	# Height of each slit in each grating (Used for 2D implementation)
 numOfSlits = 200 # number of slits in each grating
 numOfPointSources = 100  # number of point sources in each slit
 numObsPoints = 1000    # number of observing points on the screen
 spacingType = 'uniform'
 slitLength = 50 #nm
+slit_Height = 5  # Height of each slit in each grating (Used for 2D implementation)
 newSimulation = False
 runNum = 1 #Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
             # over old data
-timings = []
 ############################################################################################################
+
+print("Initializing vriables: Done")
 
 # Observing screen size
 #center of screen will automatically be at 0.5e7 nm
@@ -42,16 +45,29 @@ timings = []
 screenStart = 0e7
 screenEnd = 1e7
 
+timings = []
 
 #create array of positions that represent an observing screen
+
+print("Starting observation points")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 observingPositions = np.linspace(screenStart,screenEnd,numObsPoints)
+print("Observation points made")
+
 # Build gratings and fill with point sources
+
+print("Starting first grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
-firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength, sourcesPerSlit = numOfPointSources)
+firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength, slitHeight = slit_Height, sourcesPerSlit = numOfPointSources)
+print("First grating done")
+
 # Build second grating and fill with point sources
+
+print("Starting second grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
-secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength, sourcesPerSlit = numOfPointSources)
+secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,slitHeight = slit_Height, sourcesPerSlit = numOfPointSources)
+print("Second grating done")
+
 # Define initial source
 # Options are 'spherical' and 'plane'
 # Initial source position is -(distance from first grating in nm)
