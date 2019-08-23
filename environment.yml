@@ -11,4 +11,5 @@ dependencies:
 - numpy
 - numba
 - matplotlib
+- cudatoolkit
 ...
