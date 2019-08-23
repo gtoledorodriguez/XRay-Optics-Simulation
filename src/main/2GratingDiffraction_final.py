@@ -11,11 +11,20 @@ from numba import jit, vectorize, cuda
 import sys, math, cmath, time
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tkr
-from gratingLib import *
-from cudaKernels import *
 from time import gmtime, strftime
 
+from cudaKernels import intensityCalculations
+from gratingLib.Grating import Grating
+from gratingLib.InitialSource import InitialSource
 
+# Path to save images to.
+current_path=os.path.abspath(os.path.dirname(__file__))
+image_output_path = os.path.join(current_path, 'out')
+
+if not os.path.exists(image_output_path):
+    os.mkdir(image_output_path)
+
+image_name=os.path.join(image_output_path, 'dottedProfile.png')
 
 
 #Define initial parameters #################################################################################
@@ -95,19 +104,19 @@ timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 intensities2, amplitudes2, phases2 = intensityCalculations(screen_distance, wavenumber, secondGrating.pointSourcePositions, observingPositions, secondGrating.pointSourceAmplitudes, secondGrating.pointSourcePhases)
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 
-if newSimulation:     
+if newSimulation:
     with open("onSecondGratingResults_%s_run00%s.txt" %(initSource.waveType,runNum), 'w') as f:
         f.write("#source wave type: %s, time taken: %s\n" %(initSource.waveType,tf1-t01))
         f.write("#Intensity\tAmplitudes\t\tPhase\t\t\t\tPosition\n")
         for i, a, p, o in zip(intensities, amplitudes, phases, secondGrating.pointSourcePositions):
             f.write("%s\t%s\t%s\t%s\n" %(i, a, p, o))
-            
+
     with open("onScreenResults_%s_run00%s.txt" %(initSource.waveType,runNum), 'w') as f:
         f.write("#source wave type: %s, time taken: %s" %(initSource.waveType,tf2-t02))
         f.write("#Intensity\tAmplitudes\t\tPhase\t\t\t\tPosition\n")
         for i, a, p, o in zip(intensities2, amplitudes2, phases2, observingPositions):
             f.write("%s\t%s\t%s\t%s\n" %(i, a, p, o))
-        
+
 cuda.close()
 
 
@@ -128,7 +137,7 @@ print("End of program," + timings[9] + "\n")
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15,8))
 plt.plot(firstGrating.pointSourcePositions,firstGrating.pointSourceAmplitudes,'.r')
-plt.savefig('dottedProfile.png', transparent=True)
+plt.savefig(image_name, transparent=True)
 plt.xlabel('Position on First Grating (nm)', fontsize = 25)
 plt.ylabel('Amplitude', fontsize = 25)
 plt.title('Incident on First Grating', fontsize = 30)
@@ -137,7 +146,7 @@ plt.show()
 
 plt.figure(figsize=(15,8))
 plt.plot(secondGrating.pointSourcePositions,intensities,'.r')
-plt.savefig('dottedProfile.png', transparent=True)
+plt.savefig(image_name, transparent=True)
 plt.xlabel('Position on Second Grating (nm)', fontsize = 25)
 plt.ylabel('Normalized Intensity', fontsize = 25)
 plt.title('Incident on Second Grating', fontsize = 30)
@@ -150,7 +159,7 @@ obsPositionsMicrons = [i/1000 for i in observingPositions]
 
 plt.figure(figsize=(15,8))
 plt.plot(obsPositionsMicrons,intensities2,'r')
-plt.savefig('dottedProfile.png', transparent=True)
+plt.savefig(image_name, transparent=True)
 plt.xlabel('Position on Observing Screen (nm)', fontsize = 25)
 plt.ylabel('Normalized Intensity', fontsize = 25)
 plt.title('Uniform Grating', fontsize = 30)

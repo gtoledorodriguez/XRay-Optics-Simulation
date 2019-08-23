@@ -1,3 +1,10 @@
+import math
+
+import numpy
+
+from gratingLib.complexAmplitude import complexAmplitude
+
+
 def calcIntensities(observingPositions,pointSourcePositions,xDistance,pointSourceAmplitudes,waveNumber):
         
     # this is the functional form of the inner loop that looked at each point source position and each observing position

@@ -1,4 +1,4 @@
-import multiCoreTest as test
+from . import multiCoreTest as test
 import matplotlib
 import matplotlib.pyplot as plt
 import sys
