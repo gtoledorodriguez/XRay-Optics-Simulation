@@ -2,9 +2,9 @@ import sys
 
 import matplotlib.pyplot as plt
 
-from . import multiCoreTest as test
 
 # Args for program
+import multiCoreTest
 
 cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
 runs = int(sys.argv[2])  # Number of times program is to run, with linearly increasing processes
@@ -19,7 +19,7 @@ xLabel = 'Processes running *(' + str(multiplier) + ")"
 # Run test n times, increasing number of processes to run each time by [multiplier], split between [cores] cores
 # append results to arrays
 for x in range(1, runs):
-    multi, single = test.run(cores, x * multiplier, time)
+    multi, single = multiCoreTest.run(cores, x * multiplier, time)
     timesArray.append((multi, single))
     ratioArray.append((((multi / single) * 100) - 100) * -1)
 
