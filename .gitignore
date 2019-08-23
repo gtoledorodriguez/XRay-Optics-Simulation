@@ -1,3 +1,7 @@
 # Python temp files/compiled files
 __pycache__/
 *.pyc
+
+
+# JetBrains stuff
+.idea/
