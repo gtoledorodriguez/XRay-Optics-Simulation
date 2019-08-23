@@ -5,3 +5,6 @@ __pycache__/
 
 # JetBrains stuff
 .idea/
+
+# Output files
+out/
