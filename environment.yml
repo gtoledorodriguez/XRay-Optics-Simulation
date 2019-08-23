@@ -1,5 +1,5 @@
 # The name of the environment matching the repository name
-name: Antimatter-Gravity-Interferometer-Simulation
+name: agis
 # I prefer conda-forge packages for my projects
 channels:
 - conda-forge
