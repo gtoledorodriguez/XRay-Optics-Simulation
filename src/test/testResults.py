@@ -1,15 +1,13 @@
 import sys
 
 import matplotlib.pyplot as plt
-
-
-# Args for program
 import multiCoreTest
 
-cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
+# Args for program
 runs = int(sys.argv[2])  # Number of times program is to run, with linearly increasing processes
-time = float(sys.argv[5])  # Sleep timer to allow child process to join parent
+cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
 multiplier = int(sys.argv[4])  # Number of processes to increase by in each iteration of for loop
+time = float(sys.argv[5])  # Sleep timer to allow child process to join parent
 
 # Arrays used for storing results
 timesArray = []
