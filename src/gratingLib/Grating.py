@@ -57,7 +57,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
 
         for slit in grating.slits:
             for i in range(0, slit_height - 1):
-                for sources in slit[i].sources:
+                for source in slit[i].sources:
                     grating.pointSourcePositions.append(source.y)
                     grating.pointSourceAmplitudes.append(source.amplitude)
 
