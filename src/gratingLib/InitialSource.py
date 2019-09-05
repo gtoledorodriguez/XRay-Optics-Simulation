@@ -6,7 +6,7 @@ Created on Sun Oct 29 21:39:05 2017
 """
 import numpy as np
 
-from gratingLib.complexAmplitude import complexAmplitude
+from .complexAmplitude import complexAmplitude
 
 
 class InitialSource:
