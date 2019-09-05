@@ -19,5 +19,3 @@ Then run `python src/2GratingDiffraction_final.py` to run the slit simulation.
 Add the package to `environment.yml`.
 
 Run `conda env update -f environment.yml` in this directory to update Conda's environment from this file.
-
-this is to learn stuff
