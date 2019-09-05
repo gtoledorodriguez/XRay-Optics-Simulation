@@ -1,7 +1,7 @@
 import sys
 
 import matplotlib.pyplot as plt
-from . import multiCoreTest
+import multiCoreTest
 
 # Args for program
 runs = int(sys.argv[2])  # Number of times program is to run, with linearly increasing processes
