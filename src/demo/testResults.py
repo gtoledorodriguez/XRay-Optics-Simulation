@@ -2,6 +2,15 @@ import sys
 
 import matplotlib.pyplot as plt
 import multiCoreTest
+import argparse
+
+
+# TODO: When running this program from the command line, no description is given for what arguments
+# this program should accept. We should use `argparse` to parse command-line args.
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--runs', type=int, help="Number of times the program is to run")
 
 # Args for program
 runs = int(sys.argv[2])  # Number of times program is to run, with linearly increasing processes
