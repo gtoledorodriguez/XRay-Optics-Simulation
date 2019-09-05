@@ -4,7 +4,7 @@ Created on Sun Oct 29 21:39:05 2017
 
 @author: joest
 """
-from typing import List
+from typing import List, Tuple
 
 import numpy as np
 
@@ -22,7 +22,11 @@ class InitialSource:
         self.waveType = waveType
         self.initialAmplitude = initialAmplitude
 
-    def propogate(self, gratingX: float, pointSourceYs: List[float], waveNum: float, normalize=False):
+    def propogate(self,
+                  gratingX: float,
+                  pointSourceYs: List[float],
+                  waveNum: float,
+                  normalize=False) -> Tuple[np.ndarray, np.ndarray]:
         """
         will generate an array of amplitudes for each pointSourceY in pointSourceYs.
         """
