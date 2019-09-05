@@ -6,7 +6,7 @@ Install Conda with Python 3.6.
 
 Run `conda deactivate` to deactivate the `base` environment.
 
-Run `conda env create -f environment.yml` in this directory to create a Conda environment with all dependencies specified in `environment.yml`.
+Run `conda env create -f environment.yml` in this directory to potato a Conda environment with all dependencies specified in `environment.yml`.
 
 The environment is called `agis`.
 
