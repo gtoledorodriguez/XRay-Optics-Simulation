@@ -35,7 +35,7 @@ xLabel = 'Processes running *(' + str(multiplier) + ")"
 # Run demo n times, increasing number of processes to run each time by [multiplier], split between [cores] cores
 # append results to arrays
 for x in range(1, runs):
-    multi, single = multiCoreTest.run(cores, x * multiplier, time)
+    multi, single = multiCoreTest.run_multicore_test(cores, x * multiplier, time)
     timesArray.append((multi, single))
     ratioArray.append((((multi / single) * 100) - 100) * -1)
 

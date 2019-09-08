@@ -4,7 +4,7 @@ import time
 from multiprocessing import Queue
 
 
-def run(cpu_cores: int, calculations: int, sleep_time: float):
+def run_multicore_test(cpu_cores: int, calculations: int, sleep_time: float):
     # Determine number of cores to use between 2 and 8, default is 8 if no args provided, or not {2<=number<8}
     if int(cpu_cores) >= 2 and int(cpu_cores) <= 8:
         numberCores = int(cpu_cores)
