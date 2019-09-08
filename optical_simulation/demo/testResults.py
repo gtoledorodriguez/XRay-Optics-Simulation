@@ -1,7 +1,8 @@
 import sys
 
+from . import multiCoreTest
+
 import matplotlib.pyplot as plt
-import multiCoreTest
 import argparse
 
 # TODO: When running this program from the command line, no description is given for what arguments

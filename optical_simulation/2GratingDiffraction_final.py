@@ -13,8 +13,8 @@ import numpy as np
 from numba import cuda
 
 from cudaKernels import intensityCalculations
-from gratingLib.Grating import Grating
-from gratingLib.InitialSource import InitialSource
+from .gratingLib.Grating import Grating
+from .gratingLib.InitialSource import InitialSource
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
