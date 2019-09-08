@@ -3,24 +3,25 @@ import sys
 import time
 from multiprocessing import Queue
 
-def run(cores, vals, timer):
+
+def run(cpu_cores: int, calculations: int, sleep_time: float):
     # Determine number of cores to use between 2 and 8, default is 8 if no args provided, or not {2<=number<8}
-    if int(cores) >= 2 and int(cores) <= 8:
-        numberCores = int(cores)
+    if int(cpu_cores) >= 2 and int(cpu_cores) <= 8:
+        numberCores = int(cpu_cores)
     else:
         numberCores = 8
 
     # Determine amount of calculations to run with args entry 2, default is 1000000 if no args or val > 10000000000
-    if vals:
-        val = vals
+    if calculations:
+        val = calculations
         if val > 10000000000:
             val = 1000000
     else:
         val = 1000000  # Array size
 
     # Determine sleep timer based on args, default is 5 seconds
-    if timer:
-        sleeptimer = float(timer)
+    if sleep_time:
+        sleeptimer = float(sleep_time)
     else:
         sleeptimer = 5  # increase this to allow child processes enough time to join parent
 
