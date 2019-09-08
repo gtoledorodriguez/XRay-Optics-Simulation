@@ -3,15 +3,6 @@ import sys
 import time
 from multiprocessing import Queue
 
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
-
-
 def run(cores, vals, timer):
     # Determine number of cores to use between 2 and 8, default is 8 if no args provided, or not {2<=number<8}
     if int(cores) >= 2 and int(cores) <= 8:
