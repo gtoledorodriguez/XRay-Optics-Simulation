@@ -12,7 +12,7 @@ The environment is called `agis`.
 
 Run `conda activate agis` to use the virtual environment configured with Conda for this project.
 
-Then run `python src/2GratingDiffraction_final.py` to run the slit simulation.
+Then run `python optical_simulation/2GratingDiffraction_final.py` to run the slit simulation.
 
 ## Installing new packages
 
