@@ -3,35 +3,23 @@ import sys
 import time
 from multiprocessing import Queue
 
-
-def main():
-    pass
+from typing import Callable, List
 
 
-if __name__ == "__main__":
-    main()
+def run_multicore_test(cpu_cores: int = 8, calculations: int = 1000000, sleep_time: float = 5):
+    """
 
+    :param cpu_cores: Number of cores to use.
+    :param calculations: Number of calculations per core to run.
+    :param sleep_time: Time to sleep.
+    :return: TODO
+    """
 
-def run(cores, vals, timer):
-    # Determine number of cores to use between 2 and 8, default is 8 if no args provided, or not {2<=number<8}
-    if int(cores) >= 2 and int(cores) <= 8:
-        numberCores = int(cores)
-    else:
-        numberCores = 8
+    numberCores = int(cpu_cores)
 
-    # Determine amount of calculations to run with args entry 2, default is 1000000 if no args or val > 10000000000
-    if vals:
-        val = vals
-        if val > 10000000000:
-            val = 1000000
-    else:
-        val = 1000000  # Array size
+    val = calculations
 
-    # Determine sleep timer based on args, default is 5 seconds
-    if timer:
-        sleeptimer = float(timer)
-    else:
-        sleeptimer = 5  # increase this to allow child processes enough time to join parent
+    sleeptimer = float(sleep_time)
 
     # Initialize arrays based on arguments provided
     q = Queue()  # used to save information generated within child process in separate core
@@ -54,6 +42,18 @@ def run(cores, vals, timer):
     # Independent functions to fill arrays within separate cores with corresponding values
 
     multiVal = int(val / numberCores)  # Splits val into [numberCores] parts, which will need to merge later
+
+    def generate_core_fn(core_number, work_array: List[List[int]], multiVal) -> Callable[[int], None]:
+        """Generate a function for a core to run. TODO"""
+
+        def core_n(_):
+            for i in range(0, multiVal):
+                work_array.append(i)
+            pass
+
+        return core_n
+
+        pass
 
     def core1(n):
         for i in range(0, multiVal):
@@ -149,7 +149,8 @@ def run(cores, vals, timer):
 
     mylist = []  # Used to retrieve values from queue sequentially
 
-    time.sleep(sleeptimer)
+    print("Sleeping for {} seconds.".format(sleeptimer))
+    time.sleep(sleeptimer)  # FIXME: This is a race condition!
 
     # Get objects in queue
     if q.empty():

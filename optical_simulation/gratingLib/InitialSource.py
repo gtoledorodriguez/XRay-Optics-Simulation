@@ -8,7 +8,7 @@ from typing import List, Tuple
 
 import numpy as np
 
-from .complexAmplitude import complexAmplitude
+from optical_simulation.gratingLib.complexAmplitude import complexAmplitude
 
 
 class InitialSource:

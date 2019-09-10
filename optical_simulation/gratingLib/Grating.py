@@ -1,7 +1,7 @@
 from numpy import random
 
-from .PointSource import PointSource
-from .Slit import Slit
+from optical_simulation.gratingLib.PointSource import PointSource
+from optical_simulation.gratingLib.Slit import Slit
 
 
 class Grating:
