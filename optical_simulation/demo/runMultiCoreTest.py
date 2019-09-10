@@ -35,13 +35,13 @@ def get_args_from_command_line():
     return runs, cores, multiplier, time
 
 
-runs, cores, multiplier, time = get_args_from_command_line()
-
 if TESTING:
     runs = 10
     cores = 8
     multiplier = 20
     time = 20
+else:
+    runs, cores, multiplier, time = get_args_from_command_line()
 
 # Arrays used for storing results
 timesArray = []
