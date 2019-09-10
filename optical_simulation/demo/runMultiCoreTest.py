@@ -30,7 +30,7 @@ def get_args_from_command_line():
     parser.add_argument('--time',
                         required=True,
                         type=float,
-                        help="Sleep timer to allow child process to join parent")
+                        help="Sleep timer to mitigate our code's race condition")
     # TODO: Parse the rest of the command-line arguments using this parser object!
 
     # Parse args from command line
