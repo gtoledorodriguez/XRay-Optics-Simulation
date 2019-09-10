@@ -30,6 +30,7 @@ def run_multicore_test(cpu_cores: int = 8, number_calculations: int = 1000000, s
             for i in range(calculations_per_core):
                 work_array[i] = i
             q.put(work_array)
+            print("core {}: job done".format(core_number))
             pass
 
         return core_n
@@ -54,10 +55,16 @@ def run_multicore_test(cpu_cores: int = 8, number_calculations: int = 1000000, s
     for thread in threads:
         thread.start()
 
+
     mylist = []  # Used to retrieve values from queue sequentially
 
     print("Sleeping for {} seconds.".format(sleep_time))
-    time.sleep(sleep_time)  # FIXME: This is a race condition!
+    #time.sleep(sleep_time)  # FIXME: This is a race condition!
+    for i in range(len(threads)):
+        print("Joining thread " + str(i))
+        if threads[i].is_alive():
+            threads[i].join()
+            print('done joining')
 
     # Get objects in queue
     if q.empty():
