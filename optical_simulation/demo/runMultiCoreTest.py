@@ -43,9 +43,6 @@ def get_args_from_command_line():
     time = args.time
 
     # TODO: Don't use sys.argv for the rest of the arguments!
-    cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
-    multiplier = int(sys.argv[4])  # Number of processes to increase by in each iteration of for loop
-    time = float(sys.argv[5])  # Sleep timer to allow child process to join parent
 
     return runs, cores, multiplier, time
 
