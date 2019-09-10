@@ -4,26 +4,20 @@ import time
 from multiprocessing import Queue
 
 
-def run_multicore_test(cpu_cores: int, calculations: int, sleep_time: float):
-    # Determine number of cores to use between 2 and 8, default is 8 if no args provided, or not {2<=number<8}
-    if int(cpu_cores) >= 2 and int(cpu_cores) <= 8:
-        numberCores = int(cpu_cores)
-    else:
-        numberCores = 8
+def run_multicore_test(cpu_cores: int = 8, calculations: int = 1000000, sleep_time: float = 5):
+    """
 
-    # Determine amount of calculations to run with args entry 2, default is 1000000 if no args or val > 10000000000
-    if calculations:
-        val = calculations
-        if val > 10000000000:
-            val = 1000000
-    else:
-        val = 1000000  # Array size
+    :param cpu_cores: Number of cores to use.
+    :param calculations: Number of calculations per core to run.
+    :param sleep_time: Time to sleep.
+    :return: TODO
+    """
 
-    # Determine sleep timer based on args, default is 5 seconds
-    if sleep_time:
-        sleeptimer = float(sleep_time)
-    else:
-        sleeptimer = 5  # increase this to allow child processes enough time to join parent
+    numberCores = int(cpu_cores)
+
+    val = calculations
+
+    sleeptimer = float(sleep_time)
 
     # Initialize arrays based on arguments provided
     q = Queue()  # used to save information generated within child process in separate core
