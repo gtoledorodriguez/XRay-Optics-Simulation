@@ -5,9 +5,6 @@ from optical_simulation.demo import multiCoreTest
 import matplotlib.pyplot as plt
 import argparse
 
-TESTING = False
-"""Are we testing this program w/o command line input?"""
-
 
 def get_args_from_command_line():
     """Get arguments from the command line."""
@@ -16,19 +13,19 @@ def get_args_from_command_line():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--runs',
-                        required=True,
+                        default=5,
                         type=int,
                         help="Number of times program is to run, with linearly increasing processes")
     parser.add_argument('--cores',
-                        required=True,
+                        default=8,
                         type=int,
                         help="Number of cores to utilize with multiprocessor")
     parser.add_argument('--multiplier',
-                        required=True,
+                        default=200000,
                         type=int,
                         help="Number of processes to increase by in each iteration of for loop")
     parser.add_argument('--time',
-                        required=True,
+                        default=1.00,
                         type=float,
                         help="Sleep timer to mitigate our code's race condition")
     # TODO: Parse the rest of the command-line arguments using this parser object!
@@ -42,20 +39,12 @@ def get_args_from_command_line():
     multiplier = args.multiplier
     time = args.time
 
-    # TODO: Don't use sys.argv for the rest of the arguments!
-
     return runs, cores, multiplier, time
 
 
 if __name__ == '__main__':
 
-    if TESTING:
-        runs = 5
-        cores = 8
-        multiplier = 200000
-        time = 1
-    else:
-        runs, cores, multiplier, time = get_args_from_command_line()
+    runs, cores, multiplier, time = get_args_from_command_line()
 
     # Arrays used for storing results
     timesArray = []
