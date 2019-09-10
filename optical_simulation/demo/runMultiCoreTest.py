@@ -47,36 +47,39 @@ def get_args_from_command_line():
     return runs, cores, multiplier, time
 
 
-if TESTING:
-    runs = 5
-    cores = 8
-    multiplier = 200000
-    time = 1
-else:
-    runs, cores, multiplier, time = get_args_from_command_line()
+if __name__ == '__main__':
 
-# Arrays used for storing results
-timesArray = []
-ratioArray = []
+    if TESTING:
+        runs = 5
+        cores = 8
+        multiplier = 200000
+        time = 1
+    else:
+        runs, cores, multiplier, time = get_args_from_command_line()
 
-xLabel = 'Processes running *(' + str(multiplier) + ")"
-# Run demo n times, increasing number of processes to run each time by [multiplier], split between [cores] cores
-# append results to arrays
-for x in range(1, runs):
-    print("{}th run".format(x))
-    multi, single = multiCoreTest.run_multicore_test(cores, x * multiplier, time)
-    timesArray.append((multi, single))
-    ratioArray.append((((multi / single) * 100) - 100) * -1)
+    # Arrays used for storing results
+    timesArray = []
+    ratioArray = []
 
-# Plot the results: First subplot shows comparison in run time, second subplot shows the reduction (Or increase) in time to run-
-# - on multiple cores
-plt.subplot(2, 1, 1)
-plt.title(str(cores) + " cores (blue) vs Single core (Orange)")
-plt.ylabel('Time to run (s)')
-plt.plot(timesArray)
+    xLabel = 'Processes running *(' + str(multiplier) + ")"
+    # Run demo n times, increasing number of processes to run each time by [multiplier], split between [cores] cores
+    # append results to arrays
+    for x in range(1, runs):
+        print("{}th run".format(x))
 
-plt.subplot(2, 1, 2)
-plt.xlabel(xLabel)
-plt.ylabel("Reduction in time (%)")
-plt.plot(ratioArray)
-plt.show()
+        multi, single = multiCoreTest.run_multicore_test(cores, x * multiplier, time)
+        timesArray.append((multi, single))
+        ratioArray.append((((multi / single) * 100) - 100) * -1)
+
+    # Plot the results: First subplot shows comparison in run time, second subplot shows the reduction (Or increase) in time to run-
+    # - on multiple cores
+    plt.subplot(2, 1, 1)
+    plt.title(str(cores) + " cores (blue) vs Single core (Orange)")
+    plt.ylabel('Time to run (s)')
+    plt.plot(timesArray)
+
+    plt.subplot(2, 1, 2)
+    plt.xlabel(xLabel)
+    plt.ylabel("Reduction in time (%)")
+    plt.plot(ratioArray)
+    plt.show()
