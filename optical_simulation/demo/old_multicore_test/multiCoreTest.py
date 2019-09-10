@@ -141,7 +141,7 @@ def run_multicore_test(cpu_cores: int, calculations: int, sleep_time: float):
 
     mylist = []  # Used to retrieve values from queue sequentially
 
-    time.sleep(sleeptimer)
+    time.sleep(sleeptimer)  # FIXME: This is a race condition!
 
     # Get objects in queue
     if q.empty():
