@@ -19,6 +19,18 @@ def get_args_from_command_line():
                         required=True,
                         type=int,
                         help="Number of times program is to run, with linearly increasing processes")
+    parser.add_argument('--cores',
+                        required=True,
+                        type=int,
+                        help="Number of cores to utilize with multiprocessor")
+    parser.add_argument('--multiplier',
+                        required=True,
+                        type=int,
+                        help="Number of processes to increase by in each iteration of for loop")
+    parser.add_argument('--time',
+                        required=True,
+                        type=float,
+                        help="Sleep timer to allow child process to join parent")
     # TODO: Parse the rest of the command-line arguments using this parser object!
 
     # Parse args from command line
@@ -26,6 +38,9 @@ def get_args_from_command_line():
 
     # Args for program
     runs = args.runs
+    cores = args.cores
+    multiplier = args.multiplier
+    time = args.time
 
     # TODO: Don't use sys.argv for the rest of the arguments!
     cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
