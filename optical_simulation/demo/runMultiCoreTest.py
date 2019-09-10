@@ -36,10 +36,10 @@ def get_args_from_command_line():
 
 
 if TESTING:
-    runs = 10
+    runs = 5
     cores = 8
-    multiplier = 20
-    time = 20
+    multiplier = 200000
+    time = 1
 else:
     runs, cores, multiplier, time = get_args_from_command_line()
 
@@ -51,6 +51,7 @@ xLabel = 'Processes running *(' + str(multiplier) + ")"
 # Run demo n times, increasing number of processes to run each time by [multiplier], split between [cores] cores
 # append results to arrays
 for x in range(1, runs):
+    print("{}th run".format(x))
     multi, single = multiCoreTest.run_multicore_test(cores, x * multiplier, time)
     timesArray.append((multi, single))
     ratioArray.append((((multi / single) * 100) - 100) * -1)
