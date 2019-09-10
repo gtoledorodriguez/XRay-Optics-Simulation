@@ -5,27 +5,43 @@ from optical_simulation.demo import multiCoreTest
 import matplotlib.pyplot as plt
 import argparse
 
-# TODO: When running this program from the command line, no description is given for what arguments
-# this program should accept. We should use `argparse` to parse command-line args.
+TESTING = False
+"""Are we testing this program w/o command line input?"""
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--runs',
-                    required=True,
-                    type=int,
-                    help="Number of times program is to run, with linearly increasing processes")
-# TODO: Parse the rest of the command-line arguments using this parser object!
+def get_args_from_command_line():
+    """Get arguments from the command line."""
+    # TODO: When running this program from the command line, no description is given for what arguments
+    # this program should accept. We should use `argparse` to parse command-line args.
 
-# Parse args from command line
-args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--runs',
+                        required=True,
+                        type=int,
+                        help="Number of times program is to run, with linearly increasing processes")
+    # TODO: Parse the rest of the command-line arguments using this parser object!
 
-# Args for program
-runs = args.runs
+    # Parse args from command line
+    args = parser.parse_args()
 
-# TODO: Don't use sys.argv for the rest of the arguments!
-cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
-multiplier = int(sys.argv[4])  # Number of processes to increase by in each iteration of for loop
-time = float(sys.argv[5])  # Sleep timer to allow child process to join parent
+    # Args for program
+    runs = args.runs
+
+    # TODO: Don't use sys.argv for the rest of the arguments!
+    cores = int(sys.argv[3])  # Number of cores to utilize with multiprocessor
+    multiplier = int(sys.argv[4])  # Number of processes to increase by in each iteration of for loop
+    time = float(sys.argv[5])  # Sleep timer to allow child process to join parent
+
+    return runs, cores, multiplier, time
+
+
+runs, cores, multiplier, time = get_args_from_command_line()
+
+if TESTING:
+    runs = 10
+    cores = 8
+    multiplier = 20
+    time = 20
 
 # Arrays used for storing results
 timesArray = []
