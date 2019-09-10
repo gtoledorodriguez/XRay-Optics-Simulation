@@ -3,6 +3,8 @@ import sys
 import time
 from multiprocessing import Queue
 
+from typing import Callable, List
+
 
 def run_multicore_test(cpu_cores: int = 8, calculations: int = 1000000, sleep_time: float = 5):
     """
@@ -40,6 +42,18 @@ def run_multicore_test(cpu_cores: int = 8, calculations: int = 1000000, sleep_ti
     # Independent functions to fill arrays within separate cores with corresponding values
 
     multiVal = int(val / numberCores)  # Splits val into [numberCores] parts, which will need to merge later
+
+    def generate_core_fn(core_number, work_array: List[List[int]], multiVal) -> Callable[[int], None]:
+        """Generate a function for a core to run. TODO"""
+
+        def core_n(_):
+            for i in range(0, multiVal):
+                work_array.append(i)
+            pass
+
+        return core_n
+
+        pass
 
     def core1(n):
         for i in range(0, multiVal):
@@ -135,6 +149,7 @@ def run_multicore_test(cpu_cores: int = 8, calculations: int = 1000000, sleep_ti
 
     mylist = []  # Used to retrieve values from queue sequentially
 
+    print("Sleeping for {} seconds.".format(sleeptimer))
     time.sleep(sleeptimer)  # FIXME: This is a race condition!
 
     # Get objects in queue
