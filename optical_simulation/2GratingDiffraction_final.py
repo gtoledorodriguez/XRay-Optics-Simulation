@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numba import cuda
 
-from cudaKernels import intensityCalculations
-from .gratingLib.Grating import Grating
-from .gratingLib.InitialSource import InitialSource
+from optical_simulation.cudaKernels import intensityCalculations
+from optical_simulation.gratingLib.Grating import Grating
+from optical_simulation.gratingLib.InitialSource import InitialSource
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))

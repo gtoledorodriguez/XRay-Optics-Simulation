@@ -1,6 +1,6 @@
 import sys
 
-from . import multiCoreTest
+from optical_simulation.demo import multiCoreTest
 
 import matplotlib.pyplot as plt
 import argparse
