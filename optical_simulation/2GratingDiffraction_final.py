@@ -4,9 +4,10 @@
 Created on Sun Oct 15 17:21:19 2017
 
 """
-
+import argparse
 import os  # Used in file saving function
 from time import strftime
+from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -25,8 +26,24 @@ if not os.path.exists(image_output_path):
 
 image_name = os.path.join(image_output_path, 'dottedProfile.png')
 
+
+def get_args_from_command_line() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--screen_distance',
+                        default=5e7,
+                        type=int,
+                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+
+    #TODO: Fill in the rest of the arguments
+
+    return parser.parse_args()
+
+
+args = get_args_from_command_line()
+
 # Define initial parameters #################################################################################
-screen_distance = 5e7  # nm
+screen_distance = args.screen_distance  # nm
 screen_length = 1e7
 second_grating_distance = 5e7  # nm
 wavelength = .56  # nm
