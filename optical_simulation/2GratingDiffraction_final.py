@@ -42,7 +42,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         default=5e7,
                         type=int,
                         help='Not sure what screen_distance is exactly. Contact group or review code.')
-    parser.add_argument('--wave_length',
+    parser.add_argument('--wavelength',
                         default=.56,
                         type=float,
                         help='Not sure what screen_distance is exactly. Contact group or review code.')
@@ -50,6 +50,35 @@ def get_args_from_command_line() -> argparse.Namespace:
                         default=1,
                         type=int,
                         help='Not sure what screen_distance is exactly. Contact group or review code.')
+    parser.add_argument('--slitHeight',
+                        default=10,
+                        type=int,
+                        help='Height of each slit in each grating (Used for 2D implementation)')
+    parser.add_argument('--numOfSlits',
+                        default=200,
+                        type=int,
+                        help='Number of slits in each grating')
+    parser.add_argument('--numOfPointSources',
+                        default=100,
+                        type=int,
+                        help='Number of point sources in eac slit')
+    parser.add_argument('--numObsPoints',
+                        default=1000,
+                        type=int,
+                        help='Number of observing points on the screen')
+    parser.add_argument('--slitLength',
+                        default=50,
+                        type=int,
+                        help='Length of the slits')
+    parser.add_argument('--slit_Height',
+                        default=5,
+                        type=int,
+                        help='Height of each slit in each grating (Used for 2D implementation)')
+    parser.add_argument('--runNum',
+                        default=1,
+                        type=int,
+                        help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
+
 
     #TODO: Fill in the rest of the arguments
 
@@ -59,15 +88,8 @@ def get_args_from_command_line() -> argparse.Namespace:
 args = get_args_from_command_line()
 
 wavenumber = 2 * np.pi / wavelength
-slitHeight = 10  # Height of each slit in each grating (Used for 2D implementation)
-numOfSlits = 200  # number of slits in each grating
-numOfPointSources = 100  # number of point sources in each slit
-numObsPoints = 1000  # number of observing points on the screen
 spacingType = 'uniform'
-slitLength = 50  # nm
-slit_Height = 5  # Height of each slit in each grating (Used for 2D implementation)
 newSimulation = False
-runNum = 1  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 # over old data
 ############################################################################################################
 
