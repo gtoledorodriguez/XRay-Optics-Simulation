@@ -8,43 +8,40 @@ import argparse
 
 def get_args_from_command_line():
     """Get arguments from the command line."""
-    # TODO: When running this program from the command line, no description is given for what arguments
-    # this program should accept. We should use `argparse` to parse command-line args.
 
     parser = argparse.ArgumentParser()
+
     parser.add_argument('--runs',
                         default=5,
                         type=int,
                         help="Number of times program is to run, with linearly increasing processes")
+
     parser.add_argument('--cores',
                         default=8,
                         type=int,
                         help="Number of cores to utilize with multiprocessor")
+
     parser.add_argument('--multiplier',
                         default=200000,
                         type=int,
                         help="Number of processes to increase by in each iteration of for loop")
+
     parser.add_argument('--time',
                         default=1.00,
                         type=float,
                         help="Sleep timer to mitigate our code's race condition")
-    # TODO: Parse the rest of the command-line arguments using this parser object!
 
-    # Parse args from command line
-    args = parser.parse_args()
-
-    # Args for program
-    runs = args.runs
-    cores = args.cores
-    multiplier = args.multiplier
-    time = args.time
-
-    return runs, cores, multiplier, time
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
 
-    runs, cores, multiplier, time = get_args_from_command_line()
+    args = get_args_from_command_line()
+
+    runs = args.runs
+    cores = args.cores
+    multiplier = args.multiplier
+    time = args.time
 
     # Arrays used for storing results
     timesArray = []
