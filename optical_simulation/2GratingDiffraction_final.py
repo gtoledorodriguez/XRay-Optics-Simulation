@@ -86,6 +86,19 @@ def get_args_from_command_line() -> argparse.Namespace:
 
 
 args = get_args_from_command_line()
+screen_distance = args.screen_distance
+screen_length = args.screen_length
+second_grating_distance = args.second_grating_distance
+wavelength = args.wavelength
+slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
+numOfSlits = args.numOfSlits  # number of slits in each grating
+numOfPointSources = args.numOfPointSources  # number of point sources in each slit
+numObsPoints = args.numObsPoints  # number of observing points on the screen
+slitLength = args.slitLength  # nm
+slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
+runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
+
+
 
 wavenumber = 2 * np.pi / wavelength
 spacingType = 'uniform'
