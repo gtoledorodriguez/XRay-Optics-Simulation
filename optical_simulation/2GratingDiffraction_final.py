@@ -34,6 +34,22 @@ def get_args_from_command_line() -> argparse.Namespace:
                         default=5e7,
                         type=int,
                         help='Not sure what screen_distance is exactly. Contact group or review code.')
+    parser.add_argument('--screen_length',
+                        default=1e7,
+                        type=int,
+                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+    parser.add_argument('--second_grating_distance',
+                        default=5e7,
+                        type=int,
+                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+    parser.add_argument('--wave_length',
+                        default=.56,
+                        type=float,
+                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+    parser.add_argument('--U_0',
+                        default=1,
+                        type=int,
+                        help='Not sure what screen_distance is exactly. Contact group or review code.')
 
     #TODO: Fill in the rest of the arguments
 
@@ -42,12 +58,6 @@ def get_args_from_command_line() -> argparse.Namespace:
 
 args = get_args_from_command_line()
 
-# Define initial parameters #################################################################################
-screen_distance = args.screen_distance  # nm
-screen_length = 1e7
-second_grating_distance = 5e7  # nm
-wavelength = .56  # nm
-U_0 = 1  # ?
 wavenumber = 2 * np.pi / wavelength
 slitHeight = 10  # Height of each slit in each grating (Used for 2D implementation)
 numOfSlits = 200  # number of slits in each grating
