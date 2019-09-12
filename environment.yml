@@ -12,4 +12,5 @@ dependencies:
 - numba
 - matplotlib
 - cudatoolkit=9.0
+- syris
 ...
