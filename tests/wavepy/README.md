@@ -9,6 +9,7 @@ environment.
 
 Run `conda activate wavepy-env` to activate the environment.
 
+`conda install astropy`
 `conda install -c conda-forge dxchange`
 `conda install -c conda-forge xraylib`
 `pip install PyQt5`
