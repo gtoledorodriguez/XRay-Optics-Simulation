@@ -10,9 +10,15 @@ environment.
 Run `conda activate wavepy-env` to activate the environment.
 
 `conda install astropy`
+
 `conda install -c conda-forge dxchange`
+
 `conda install -c conda-forge xraylib`
+
 `pip install PyQt5`
+
 `pip install cffi tqdm termcolor easygui_qt`
+
 `pip install unwrap`
+
 `pip install wavepy`
