@@ -33,47 +33,58 @@ def get_args_from_command_line() -> argparse.Namespace:
     parser.add_argument('--screen_distance',
                         default=5e7,
                         type=int,
-                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+                        help='Not sure what this is exactly. Contact group or review code.')
+
     parser.add_argument('--screen_length',
                         default=1e7,
                         type=int,
-                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+                        help='Not sure what this is exactly. Contact group or review code.')
+
     parser.add_argument('--second_grating_distance',
                         default=5e7,
                         type=int,
-                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+                        help='Not sure what this is exactly. Contact group or review code.')
+
     parser.add_argument('--wavelength',
                         default=.56,
                         type=float,
-                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+                        help='The wavelength of the wave in nanometers.')
+
     parser.add_argument('--U_0',
                         default=1,
                         type=int,
-                        help='Not sure what screen_distance is exactly. Contact group or review code.')
+                        help='The initial amplitude of the point source')
+
     parser.add_argument('--slitHeight',
                         default=10,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
+
     parser.add_argument('--numOfSlits',
                         default=200,
                         type=int,
                         help='Number of slits in each grating')
+
     parser.add_argument('--numOfPointSources',
                         default=100,
                         type=int,
                         help='Number of point sources in eac slit')
+
     parser.add_argument('--numObsPoints',
                         default=1000,
                         type=int,
                         help='Number of observing points on the screen')
+
     parser.add_argument('--slitLength',
                         default=50,
                         type=int,
                         help='Length of the slits')
+
     parser.add_argument('--slit_Height',
                         default=5,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
+
     parser.add_argument('--runNum',
                         default=1,
                         type=int,
@@ -90,7 +101,7 @@ screen_distance = args.screen_distance
 screen_length = args.screen_length
 second_grating_distance = args.second_grating_distance
 wavelength = args.wavelength
-slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
+slitHeight = args.slitHeight  #
 numOfSlits = args.numOfSlits  # number of slits in each grating
 numOfPointSources = args.numOfPointSources  # number of point sources in each slit
 numObsPoints = args.numObsPoints  # number of observing points on the screen
