@@ -6,7 +6,7 @@ from optical_simulation.gratingLib.Slit import Slit
 
 class Grating:
 
-    def __init__(self, x, length, numberOfSlits, slitWidth, slitHeight, sourcesPerSlit, sourceSpacing='uniform'):
+    def __init__(self, x, length, numberOfSlits, slitWidth, slitHeight, sourcesPerSlit, sourceSpacing):
 
         # all attributes are necessary for a grating to initialize itself and fill itself with slits and point sources
         self.x = x

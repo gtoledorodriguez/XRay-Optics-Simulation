@@ -80,6 +80,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Length of the slits')
 
+    parser.add_argument('--spacingType',
+                        default='uniform',
+                        type=str,
+                        help='Geometry of the slits, Can be "uniform", "random", ...')
+
     parser.add_argument('--slit_Height',
                         default=5,
                         type=int,
@@ -108,11 +113,11 @@ numObsPoints = args.numObsPoints  # number of observing points on the screen
 slitLength = args.slitLength  # nm
 slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
+spacingType = args.spacingType
 
 
 
 wavenumber = 2 * np.pi / wavelength
-spacingType = 'uniform'
 newSimulation = False
 # over old data
 ############################################################################################################
@@ -139,7 +144,7 @@ print("Observation points made")
 print("Starting first grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources)
+                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("First grating done")
 
 # Build second grating and fill with point sources
@@ -147,7 +152,7 @@ print("First grating done")
 print("Starting second grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources)
+                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("Second grating done")
 
 # Define initial source
