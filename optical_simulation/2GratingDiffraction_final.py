@@ -95,8 +95,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
 
-
-    #TODO: Fill in the rest of the arguments
+    # TODO: Fill in the rest of the arguments
 
     return parser.parse_args()
 
@@ -114,8 +113,7 @@ slitLength = args.slitLength  # nm
 slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
-
-
+U_0 = args.U_0
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
@@ -159,7 +157,7 @@ print("Second grating done")
 # Options are 'spherical' and 'plane'
 # Initial source position is -(distance from first grating in nm)
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
-initSource = InitialSource(xPosition=-1e7, yPosition=screen_length / 2, waveType='plane', initialAmplitude=1.0)
+initSource = InitialSource(xPosition=-1e7, yPosition=screen_length / 2, waveType='plane', initialAmplitude=U_0)
 
 # generate source amplitudes and phases based on the initial source and the first gratings point source positions
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
