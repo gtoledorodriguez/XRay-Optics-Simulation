@@ -50,7 +50,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # place a slit in the middle of the Grating.
         # Note: the y position of a slit is defined as its endpoint closest to the x axis
         center = grating.length / 2
-        thisSlit = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])] * slit_height
+        thisSlit = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
         # thisSlit = Slit(Grating.x, center - slit_width/2, slit_width, num_sources, [])
         grating.slits.append(thisSlit)
         makeSources(thisSlit, slit_height, 0, source_spacing)
@@ -66,8 +66,8 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # place two slits, with one 'slit_width' of distance between them
 
         center = grating.length / 2
-        slit1 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])] * slit_height
-        slit2 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])] * slit_height
+        slit1 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
+        slit2 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
         # slit1 = Slit(Grating.x, center - slit_width*1.5, slit_width, num_sources, [])
         # slit2 = Slit(Grating.x, center + slit_width*1.5, slit_width, num_sources, [])
         grating.slits.append(slit1)
@@ -98,8 +98,8 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 slit2_y = center - slit_width * 1.5 - 2 * i * slit_width
 
                 # Made slit 2 dimentional by making an array of slit height size, with identical slits.
-                slit_1 = [Slit(grating.x, slit1_y, slit_width, num_sources, [])] * slit_height
-                slit_2 = [Slit(grating.x, slit2_y, slit_width, num_sources, [])] * slit_height
+                slit_1 = [Slit(grating.x, slit1_y, slit_width, num_sources, []) for i in range(slit_height)]
+                slit_2 = [Slit(grating.x, slit2_y, slit_width, num_sources, []) for i in range(slit_height)]
                 grating.slits.append(slit_1)
                 grating.slits.append(slit_2)
 
@@ -127,8 +127,8 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 slit2_y = center - slit_width * 2.5 - 2 * i * slit_width
 
                 # Made slit 2 dimentional by making an array of slit height size, with identical slits.
-                slit_1 = [Slit(grating.x, slit1_y, slit_width, num_sources, [])] * slit_height
-                slit_2 = [Slit(grating.x, slit2_y, slit_width, num_sources, [])] * slit_height
+                slit_1 = [Slit(grating.x, slit1_y, slit_width, num_sources, []) for i in range(slit_height)]
+                slit_2 = [Slit(grating.x, slit2_y, slit_width, num_sources, []) for i in range(slit_height)]
                 grating.slits.append(slit_1)
                 grating.slits.append(slit_2)
 
