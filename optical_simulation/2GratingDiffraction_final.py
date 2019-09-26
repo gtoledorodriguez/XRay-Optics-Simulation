@@ -24,7 +24,9 @@ image_output_path = os.path.join(current_path, 'out')
 if not os.path.exists(image_output_path):
     os.mkdir(image_output_path)
 
-image_name = os.path.join(image_output_path, 'dottedProfile.png')
+image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
+image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
+image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
 
 
 def get_args_from_command_line() -> argparse.Namespace:
@@ -217,7 +219,7 @@ print("End of program," + timings[9] + "\n")
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15, 8))
 plt.plot(firstGrating.pointSourcePositions, firstGrating.pointSourceAmplitudes, '.r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name1, transparent=True)
 plt.xlabel('Position on First Grating (nm)', fontsize=25)
 plt.ylabel('Amplitude', fontsize=25)
 plt.title('Incident on First Grating', fontsize=30)
@@ -225,7 +227,7 @@ plt.show()
 
 plt.figure(figsize=(15, 8))
 plt.plot(secondGrating.pointSourcePositions, intensities, '.r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name2, transparent=True)
 plt.xlabel('Position on Second Grating (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Incident on Second Grating', fontsize=30)
@@ -238,7 +240,7 @@ obsPositionsMicrons = [i / 1000 for i in observingPositions]
 
 plt.figure(figsize=(15, 8))
 plt.plot(obsPositionsMicrons, intensities2, 'r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name3, transparent=True)
 plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)
