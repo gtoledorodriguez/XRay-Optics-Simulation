@@ -5,12 +5,12 @@
 #python -m optical_simulation.2GratingDiffraction_final --imageSubdirs slitHeight3 --slitHeight=3
 
 
-for (( n=0; n<=100; n+=10)); do
-
-    python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "numOfPointSources${n}" --numOfPointSources="${n}"
-
-done
-
+# If we haven't ran the 'numOfPointSourcesRuns' simulations, then run a LARGE amount of those simulations and create that directory.
+if ! [[ -d "./image_output/numOfPointSourcesRuns" ]]; then
+    for (( n=0; n<=100; n+=10)); do
+        python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "numOfPointSourcesRuns" "numOfPointSources${n}" --numOfPointSources="${n}"
+    done
+fi
 
 # If we haven't ran the 'numObsPoints' simulations, then run a LARGE amount of those simulations and create that directory.
 if ! [[ -d "./image_output/numObsPointsRuns/" ]]; then
