@@ -4,9 +4,10 @@
 Created on Sun Oct 15 17:21:19 2017
 
 """
-
+import argparse
 import os  # Used in file saving function
 from time import strftime
+from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,24 +24,101 @@ image_output_path = os.path.join(current_path, 'out')
 if not os.path.exists(image_output_path):
     os.mkdir(image_output_path)
 
-image_name = os.path.join(image_output_path, 'dottedProfile.png')
+image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
+image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
+image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
 
-# Define initial parameters #################################################################################
-screen_distance = 5e7  # nm
-screen_length = 1e7
-second_grating_distance = 5e7  # nm
-wavelength = .56  # nm is the de Broglie wavelength of muonium at 6300 meters/s
-U_0 = 1  # ?
+
+def get_args_from_command_line() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--screen_distance',
+                        default=5e7,
+                        type=int,
+                        help='Not sure what this is exactly. Contact group or review code.')
+
+    parser.add_argument('--screen_length',
+                        default=1e7,
+                        type=int,
+                        help='Not sure what this is exactly. Contact group or review code.')
+
+    parser.add_argument('--second_grating_distance',
+                        default=5e7,
+                        type=int,
+                        help='Not sure what this is exactly. Contact group or review code.')
+
+    parser.add_argument('--wavelength',
+                        default=.56,
+                        type=float,
+                        help='The wavelength of the wave in nanometers.')
+
+    parser.add_argument('--U_0',
+                        default=1,
+                        type=int,
+                        help='The initial amplitude of the point source')
+
+    parser.add_argument('--slitHeight',
+                        default=10,
+                        type=int,
+                        help='Height of each slit in each grating (Used for 2D implementation)')
+
+    parser.add_argument('--numOfSlits',
+                        default=200,
+                        type=int,
+                        help='Number of slits in each grating')
+
+    parser.add_argument('--numOfPointSources',
+                        default=100,
+                        type=int,
+                        help='Number of point sources in eac slit')
+
+    parser.add_argument('--numObsPoints',
+                        default=1000,
+                        type=int,
+                        help='Number of observing points on the screen')
+
+    parser.add_argument('--slitLength',
+                        default=50,
+                        type=int,
+                        help='Length of the slits')
+
+    parser.add_argument('--spacingType',
+                        default='uniform',
+                        type=str,
+                        help='Geometry of the slits, Can be "uniform", "random", ...')
+
+    parser.add_argument('--slit_Height',
+                        default=5,
+                        type=int,
+                        help='Height of each slit in each grating (Used for 2D implementation)')
+
+    parser.add_argument('--runNum',
+                        default=1,
+                        type=int,
+                        help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
+
+    # TODO: Fill in the rest of the arguments
+
+    return parser.parse_args()
+
+
+args = get_args_from_command_line()
+screen_distance = args.screen_distance # in nanometers
+screen_length = args.screen_length # in nanometers
+second_grating_distance = args.second_grating_distance # in nanometers
+wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
+slitHeight = args.slitHeight  # in nanometers
+numOfSlits = args.numOfSlits  # number of slits in each grating
+numOfPointSources = args.numOfPointSources  # number of point sources in each slit
+numObsPoints = args.numObsPoints  # number of observing points on the screen
+slitLength = args.slitLength  # nm
+slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
+runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
+spacingType = args.spacingType
+U_0 = args.U_0
+
 wavenumber = 2 * np.pi / wavelength
-slitHeight = 10  # Height of each slit in each grating (Used for 2D implementation)
-numOfSlits = 200  # number of slits in each grating
-numOfPointSources = 100  # number of point sources in each slit
-numObsPoints = 1000  # number of observing points on the screen
-spacingType = 'uniform'
-slitLength = 50  # nm
-slit_Height = 5  # Height of each slit in each grating (Used for 2D implementation)
 newSimulation = False
-runNum = 1  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 # over old data
 ############################################################################################################
 
@@ -66,7 +144,7 @@ print("Observation points made")
 print("Starting first grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources)
+                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("First grating done")
 
 # Build second grating and fill with point sources
@@ -74,14 +152,14 @@ print("First grating done")
 print("Starting second grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources)
+                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("Second grating done")
 
 # Define initial source
 # Options are 'spherical' and 'plane'
 # Initial source position is -(distance from first grating in nm)
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
-initSource = InitialSource(xPosition=-1e7, yPosition=screen_length / 2, waveType='plane', initialAmplitude=1.0)
+initSource = InitialSource(xPosition=-1e7, yPosition=screen_length / 2, waveType='plane', initialAmplitude=U_0)
 
 # generate source amplitudes and phases based on the initial source and the first gratings point source positions
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
@@ -141,7 +219,7 @@ print("End of program," + timings[9] + "\n")
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15, 8))
 plt.plot(firstGrating.pointSourcePositions, firstGrating.pointSourceAmplitudes, '.r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name1, transparent=True)
 plt.xlabel('Position on First Grating (nm)', fontsize=25)
 plt.ylabel('Amplitude', fontsize=25)
 plt.title('Incident on First Grating', fontsize=30)
@@ -149,7 +227,7 @@ plt.show()
 
 plt.figure(figsize=(15, 8))
 plt.plot(secondGrating.pointSourcePositions, intensities, '.r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name2, transparent=True)
 plt.xlabel('Position on Second Grating (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Incident on Second Grating', fontsize=30)
@@ -162,7 +240,7 @@ obsPositionsMicrons = [i / 1000 for i in observingPositions]
 
 plt.figure(figsize=(15, 8))
 plt.plot(obsPositionsMicrons, intensities2, 'r')
-plt.savefig(image_name, transparent=True)
+plt.savefig(image_name3, transparent=True)
 plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)

@@ -1,4 +1,4 @@
-# Antimatter-Gravity-Interferometer-Simulation
+# X-Ray Optics Simulation
 
 ## Running this code
 
