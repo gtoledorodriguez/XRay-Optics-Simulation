@@ -45,7 +45,7 @@ def get_args_from_command_line() -> argparse.Namespace:
 
     parser.add_argument('--U_0',
                         default=1,
-                        type=int,
+                        type=float,
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
