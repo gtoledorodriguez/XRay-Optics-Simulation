@@ -17,17 +17,6 @@ from optical_simulation.cudaKernels import intensityCalculations
 from optical_simulation.gratingLib.Grating import Grating
 from optical_simulation.gratingLib.InitialSource import InitialSource
 
-# Path to save images to.
-current_path = os.path.abspath(os.path.dirname(__file__))
-image_output_path = os.path.join(current_path, 'out')
-
-if not os.path.exists(image_output_path):
-    os.mkdir(image_output_path)
-
-image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
-image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
-image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
-
 
 def get_args_from_command_line() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -97,6 +86,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
 
+    parser.add_argument('--imageSubdir',
+                        default='default_subdirectory',
+                        type=str,
+                        help='Used to save images to a different subfolder. Useful for running multiple batches and examining images later.')
+
     # TODO: Fill in the rest of the arguments
 
     return parser.parse_args()
@@ -116,9 +110,21 @@ slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
+imageSubdir=args.imageSubdir
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
+
+# Path to save images to.
+current_path = os.path.abspath(os.path.dirname(__file__))
+image_output_path = os.path.join(current_path, 'image_output', imageSubdir)
+
+if not os.path.exists(image_output_path):
+    os.mkdir(image_output_path)
+
+image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
+image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
+image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
 # over old data
 ############################################################################################################
 
@@ -219,19 +225,19 @@ print("End of program," + timings[9] + "\n")
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15, 8))
 plt.plot(firstGrating.pointSourcePositions, firstGrating.pointSourceAmplitudes, '.r')
-plt.savefig(image_name1, transparent=True)
 plt.xlabel('Position on First Grating (nm)', fontsize=25)
 plt.ylabel('Amplitude', fontsize=25)
 plt.title('Incident on First Grating', fontsize=30)
-plt.show()
+plt.savefig(image_name1, transparent=True)
+# plt.show()
 
 plt.figure(figsize=(15, 8))
 plt.plot(secondGrating.pointSourcePositions, intensities, '.r')
-plt.savefig(image_name2, transparent=True)
 plt.xlabel('Position on Second Grating (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Incident on Second Grating', fontsize=30)
-plt.show()
+plt.savefig(image_name2, transparent=True)
+# plt.show()
 
 maxIntensities2 = max(intensities2)
 intensities2 = [i / maxIntensities2 for i in intensities2]
@@ -240,8 +246,11 @@ obsPositionsMicrons = [i / 1000 for i in observingPositions]
 
 plt.figure(figsize=(15, 8))
 plt.plot(obsPositionsMicrons, intensities2, 'r')
-plt.savefig(image_name3, transparent=True)
 plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)
-plt.show()
+plt.savefig(image_name3, transparent=True)
+# plt.show()
+
+print("Image files:")
+print(image_name1, image_name2, image_name3)
