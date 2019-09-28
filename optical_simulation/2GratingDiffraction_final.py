@@ -76,11 +76,6 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=str,
                         help='Geometry of the slits, Can be "uniform", "random", ...')
 
-    parser.add_argument('--slit_Height',
-                        default=5,
-                        type=int,
-                        help='Height of each slit in each grating (Used for 2D implementation)')
-
     parser.add_argument('--runNum',
                         default=1,
                         type=int,
