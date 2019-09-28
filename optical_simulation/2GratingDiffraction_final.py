@@ -253,4 +253,6 @@ plt.savefig(image_name3, transparent=True)
 # plt.show()
 
 print("Image files:")
-print(image_name1, image_name2, image_name3)
+print(image_name1)
+print(image_name2)
+print(image_name3)
