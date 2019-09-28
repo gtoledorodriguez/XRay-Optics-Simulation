@@ -92,9 +92,9 @@ def get_args_from_command_line() -> argparse.Namespace:
 
 
 args = get_args_from_command_line()
-screen_distance = args.screen_distance # in nanometers
-screen_length = args.screen_length # in nanometers
-second_grating_distance = args.second_grating_distance # in nanometers
+screen_distance = args.screen_distance  # in nanometers
+screen_length = args.screen_length  # in nanometers
+second_grating_distance = args.second_grating_distance  # in nanometers
 wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
 numOfSlits = args.numOfSlits  # number of slits in each grating
 numOfPointSources = args.numOfPointSources  # number of point sources in each slit
@@ -104,7 +104,7 @@ slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
-imageSubdir=args.imageSubdir
+imageSubdir = args.imageSubdir
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
@@ -116,9 +116,9 @@ image_output_path = os.path.join(current_path, 'image_output', imageSubdir)
 if not os.path.exists(image_output_path):
     os.makedirs(image_output_path)
 
-image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
-image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
-image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
+image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdir))
+image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdir))
+image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdir))
 # over old data
 ############################################################################################################
 
