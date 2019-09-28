@@ -7,7 +7,7 @@ Created on Sun Oct 15 17:21:19 2017
 import argparse
 import os  # Used in file saving function
 from time import strftime
-from typing import Tuple
+from typing import Tuple, List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -81,9 +81,9 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
 
-    parser.add_argument('--imageSubdir',
-                        default='default_subdirectory',
-                        type=str,
+    parser.add_argument('--imageSubdirs',
+                        default=['default_subdirectory'],
+                        nargs='+',
                         help='Used to save images to a different subfolder. Useful for running multiple batches and examining images later.')
 
     # TODO: Fill in the rest of the arguments
@@ -104,21 +104,25 @@ slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
-imageSubdir = args.imageSubdir
+imageSubdirs = args.imageSubdirs
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
 
+print(imageSubdirs)
+
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
-image_output_path = os.path.join(current_path, 'image_output', imageSubdir)
+image_output_path = os.path.join(current_path, 'image_output', *imageSubdirs)
 
 if not os.path.exists(image_output_path):
     os.makedirs(image_output_path)
 
-image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdir))
-image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdir))
-image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdir))
+print("using this path to save images: {}".format(image_output_path))
+
+image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdirs[-1]))
+image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdirs[-1]))
+image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
 # over old data
 ############################################################################################################
 
