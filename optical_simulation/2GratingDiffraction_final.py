@@ -7,6 +7,7 @@ Created on Sun Oct 15 17:21:19 2017
 import argparse
 import os  # Used in file saving function
 from time import strftime
+from time import time
 from typing import Tuple
 
 import matplotlib.pyplot as plt
@@ -110,7 +111,7 @@ slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
-imageSubdir=args.imageSubdir
+imageSubdir = args.imageSubdir
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
@@ -125,10 +126,11 @@ if not os.path.exists(image_output_path):
 image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
 image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
 image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
+image_name4 = os.path.join(image_output_path, 'dottedProfile4.png')
 # over old data
 ############################################################################################################
 
-print("Initializing vriables: Done")
+print("Initializing variables: Done")
 
 # Observing screen size
 # center of screen will automatically be at 0.5e7 nm
@@ -137,63 +139,66 @@ screenStart = 0e7
 screenEnd = 1e7
 
 timings = []
+initial_time = int(round(time() * 1000))
+
+def add_time(function_name):
+
+    x = int(round(time() * 1000))
+    timings.append([function_name, strftime("%Y/%m/%d %H:%M:%S"), x])
 
 # create array of positions that represent an observing screen
 
 print("Starting observation points")
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 observingPositions = np.linspace(screenStart, screenEnd, numObsPoints)
+add_time("observingPositions")
 print("Observation points made")
 
 # Build gratings and fill with point sources
 
 print("Starting first grating")
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
+
 firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+add_time("firstGrating")
 print("First grating done")
 
 # Build second grating and fill with point sources
 
 print("Starting second grating")
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
                         slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+add_time("secondGrating")
 print("Second grating done")
 
 # Define initial source
 # Options are 'spherical' and 'plane'
 # Initial source position is -(distance from first grating in nm)
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 initSource = InitialSource(xPosition=-1e7, yPosition=screen_length / 2, waveType='plane', initialAmplitude=U_0)
-
+add_time("initSource")
 # generate source amplitudes and phases based on the initial source and the first gratings point source positions
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 sourceAmps, sourcePhase = initSource.propogate(firstGrating.x, firstGrating.pointSourcePositions, wavenumber,
                                                normalize=True)
-
+add_time("initSource.propogate")
 # add these amplitudes to the first grating's point sources
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 firstGrating.addAmplitudes(sourceAmps, sourcePhase)
+add_time("firstGrating.addAmplitudes")
 # calculate information from firstGrating propagating to secondGrating
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 intensities, amplitudes, phases = intensityCalculations(screen_distance, wavenumber, firstGrating.pointSourcePositions,
                                                         secondGrating.pointSourcePositions,
                                                         firstGrating.pointSourceAmplitudes,
                                                         firstGrating.pointSourcePhases)
+add_time("intensityCalculations1")
 # add necessary results to secondGrating's point sources
 # print('Populating grating 2\n')
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 secondGrating.addAmplitudes(amplitudes, phases)
-
+add_time("secondGrating.addAmplitudes")
 # calculate information from secondGrating propagation to observingPositions
 # print('Grating 2 to Screen:\n')
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 intensities2, amplitudes2, phases2 = intensityCalculations(screen_distance, wavenumber,
                                                            secondGrating.pointSourcePositions, observingPositions,
                                                            secondGrating.pointSourceAmplitudes,
                                                            secondGrating.pointSourcePhases)
-timings.append(strftime("%Y/%m/%d %H:%M:%S"))
+add_time("intensityCalculations2")
 
 if newSimulation:
     with open("onSecondGratingResults_%s_run00%s.txt" % (initSource.waveType, runNum), 'w') as f:
@@ -209,18 +214,24 @@ if newSimulation:
             f.write("%s\t%s\t%s\t%s\n" % (i, a, p, o))
 
 cuda.close()
+last_time = initial_time
+for i in range(len(timings)):
 
-print("Function, Timestamp")
-print("observingPositions," + timings[0])
-print("firstGrating," + timings[1])
-print("secondGrating," + timings[2])
-print("initSource," + timings[3])
-print("initSource.propogate," + timings[4])
-print("firstGrating.addAmplitudes," + timings[5])
-print("calcIntensitiesCUDA," + timings[6])
-print("secondGrating.addAmplitudes," + timings[7])
-print("calcIntensitiesCUDA," + timings[8])
-print("End of program," + timings[9] + "\n")
+    temp = timings[i][2]
+    timings[i][2] -= last_time
+    last_time = temp
+
+fig, axs =plt.subplots(2,1)
+axs[0].axis('tight')
+axs[0].axis('off')
+x = list(range(len(timings)))
+function_names = list(map(lambda x: x[0], timings))
+runtimes = list(map(lambda x: x[2], timings))
+cell_text = list(map(lambda x: [x[1],x[2]], timings))
+axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
+axs[1].bar(x, runtimes)
+plt.xticks(x, x)
+plt.savefig(image_name4, transparent=True)
 
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15, 8))
@@ -253,4 +264,4 @@ plt.savefig(image_name3, transparent=True)
 # plt.show()
 
 print("Image files:")
-print(image_name1, image_name2, image_name3)
+print(image_name1, image_name2, image_name3, image_name4)
