@@ -45,7 +45,7 @@ def get_args_from_command_line() -> argparse.Namespace:
 
     parser.add_argument('--U_0',
                         default=1,
-                        type=float,
+                        type=int,
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
@@ -125,7 +125,7 @@ print("using this path to save images: {}".format(image_output_path))
 image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdirs[-1]))
 image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdirs[-1]))
 image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
-image_name4 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
+image_name4 = os.path.join(image_output_path, '{}-4.png'.format(imageSubdirs[-1]))
 
 # over old data
 ############################################################################################################
