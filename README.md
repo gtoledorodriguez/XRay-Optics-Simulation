@@ -16,6 +16,8 @@ Then run `python -m optical_simulation.2GratingDiffraction_final` to run the sli
 
 You can also run `python -m optical_simulation.demo.runMultiCoreTest` to run the multi-core test.
 
+There is a shell script called `RunMultipleTest.sh` that will run multiple simulations with slightly different parameters.
+
 ## Installing new packages
 
 Add the package to `environment.yml`.
