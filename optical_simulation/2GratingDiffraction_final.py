@@ -47,7 +47,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
-                        default=10,
+                        default=5,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
@@ -96,12 +96,11 @@ screen_distance = args.screen_distance # in nanometers
 screen_length = args.screen_length # in nanometers
 second_grating_distance = args.second_grating_distance # in nanometers
 wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
-slitHeight = args.slitHeight  # in nanometers
 numOfSlits = args.numOfSlits  # number of slits in each grating
 numOfPointSources = args.numOfPointSources  # number of point sources in each slit
 numObsPoints = args.numObsPoints  # number of observing points on the screen
 slitLength = args.slitLength  # nm
-slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
+slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
@@ -145,7 +144,7 @@ print("Observation points made")
 print("Starting first grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                       slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("First grating done")
 
 # Build second grating and fill with point sources
@@ -153,7 +152,7 @@ print("First grating done")
 print("Starting second grating")
 timings.append(strftime("%Y/%m/%d %H:%M:%S"))
 secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                        slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 print("Second grating done")
 
 # Define initial source
