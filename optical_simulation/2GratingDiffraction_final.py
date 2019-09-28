@@ -158,7 +158,7 @@ print("Observation points made")
 print("Starting first grating")
 
 firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                       slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                       slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 add_time("firstGrating")
 print("First grating done")
 
@@ -166,7 +166,7 @@ print("First grating done")
 
 print("Starting second grating")
 secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                        slitHeight=slit_Height, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                        slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
 add_time("secondGrating")
 print("Second grating done")
 
