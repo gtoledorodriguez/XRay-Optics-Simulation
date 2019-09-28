@@ -8,7 +8,8 @@ import argparse
 import os  # Used in file saving function
 from time import strftime
 from time import time
-from typing import Tuple
+from typing import Tuple, List
+
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -48,7 +49,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
-                        default=10,
+                        default=5,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
@@ -77,19 +78,14 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=str,
                         help='Geometry of the slits, Can be "uniform", "random", ...')
 
-    parser.add_argument('--slit_Height',
-                        default=5,
-                        type=int,
-                        help='Height of each slit in each grating (Used for 2D implementation)')
-
     parser.add_argument('--runNum',
                         default=1,
                         type=int,
                         help='Used to dynamically name files. Change every time you run a simulation. Otherwise it will write')
 
-    parser.add_argument('--imageSubdir',
-                        default='default_subdirectory',
-                        type=str,
+    parser.add_argument('--imageSubdirs',
+                        default=['default_subdirectory'],
+                        nargs='+',
                         help='Used to save images to a different subfolder. Useful for running multiple batches and examining images later.')
 
     # TODO: Fill in the rest of the arguments
@@ -98,35 +94,39 @@ def get_args_from_command_line() -> argparse.Namespace:
 
 
 args = get_args_from_command_line()
-screen_distance = args.screen_distance # in nanometers
-screen_length = args.screen_length # in nanometers
-second_grating_distance = args.second_grating_distance # in nanometers
+screen_distance = args.screen_distance  # in nanometers
+screen_length = args.screen_length  # in nanometers
+second_grating_distance = args.second_grating_distance  # in nanometers
 wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
-slitHeight = args.slitHeight  # in nanometers
 numOfSlits = args.numOfSlits  # number of slits in each grating
 numOfPointSources = args.numOfPointSources  # number of point sources in each slit
 numObsPoints = args.numObsPoints  # number of observing points on the screen
 slitLength = args.slitLength  # nm
-slit_Height = args.slit_Height  # Height of each slit in each grating (Used for 2D implementation)
+slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
 runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
 spacingType = args.spacingType
 U_0 = args.U_0
-imageSubdir = args.imageSubdir
+imageSubdirs = args.imageSubdirs
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
 
+print(imageSubdirs)
+
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
-image_output_path = os.path.join(current_path, 'image_output', imageSubdir)
+image_output_path = os.path.join(current_path, 'image_output', *imageSubdirs)
 
 if not os.path.exists(image_output_path):
-    os.mkdir(image_output_path)
+    os.makedirs(image_output_path)
 
-image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
-image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
-image_name3 = os.path.join(image_output_path, 'dottedProfile3.png')
-image_name4 = os.path.join(image_output_path, 'dottedProfile4.png')
+print("using this path to save images: {}".format(image_output_path))
+
+image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdirs[-1]))
+image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdirs[-1]))
+image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
+image_name4 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
+
 # over old data
 ############################################################################################################
 
@@ -239,7 +239,7 @@ plt.plot(firstGrating.pointSourcePositions, firstGrating.pointSourceAmplitudes, 
 plt.xlabel('Position on First Grating (nm)', fontsize=25)
 plt.ylabel('Amplitude', fontsize=25)
 plt.title('Incident on First Grating', fontsize=30)
-plt.savefig(image_name1, transparent=True)
+plt.savefig(image_name1, transparent=False)
 # plt.show()
 
 plt.figure(figsize=(15, 8))
@@ -247,7 +247,7 @@ plt.plot(secondGrating.pointSourcePositions, intensities, '.r')
 plt.xlabel('Position on Second Grating (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Incident on Second Grating', fontsize=30)
-plt.savefig(image_name2, transparent=True)
+plt.savefig(image_name2, transparent=False)
 # plt.show()
 
 maxIntensities2 = max(intensities2)
@@ -260,8 +260,11 @@ plt.plot(obsPositionsMicrons, intensities2, 'r')
 plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)
-plt.savefig(image_name3, transparent=True)
+plt.savefig(image_name3, transparent=False)
 # plt.show()
 
 print("Image files:")
-print(image_name1, image_name2, image_name3, image_name4)
+print(image_name1)
+print(image_name2)
+print(image_name3)
+print(image_name4)
