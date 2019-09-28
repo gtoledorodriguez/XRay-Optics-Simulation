@@ -17,7 +17,7 @@ fi
 
 # If we haven't ran the 'numOfPointSourcesRuns' simulations, then run a LARGE amount of those simulations and create that directory.
 if ! [[ -d "./optical_simulation/image_output/numOfPointSourcesRuns" ]]; then
-    for (( n=0; n<=100; n+=10)); do
+    for (( n=0; n<=1000; n+=100)); do
         python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "numOfPointSourcesRuns" "numOfPointSources${n}" --numOfPointSources="${n}"
     done
 fi
