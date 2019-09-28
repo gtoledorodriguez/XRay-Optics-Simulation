@@ -214,24 +214,6 @@ if newSimulation:
             f.write("%s\t%s\t%s\t%s\n" % (i, a, p, o))
 
 cuda.close()
-last_time = initial_time
-for i in range(len(timings)):
-
-    temp = timings[i][2]
-    timings[i][2] -= last_time
-    last_time = temp
-
-fig, axs =plt.subplots(2,1)
-axs[0].axis('tight')
-axs[0].axis('off')
-x = list(range(len(timings)))
-function_names = list(map(lambda x: x[0], timings))
-runtimes = list(map(lambda x: x[2], timings))
-cell_text = list(map(lambda x: [x[1],x[2]], timings))
-axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
-axs[1].bar(x, runtimes)
-plt.xticks(x, x)
-plt.savefig(image_name4, transparent=True)
 
 # quickly plot data to see if results are reasonable
 plt.figure(figsize=(15, 8))
@@ -262,6 +244,24 @@ plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)
 plt.savefig(image_name3, transparent=False)
 # plt.show()
+
+last_time = initial_time
+for i in range(len(timings)):
+    temp = timings[i][2]
+    timings[i][2] -= last_time
+    last_time = temp
+
+fig, axs =plt.subplots(2,1)
+axs[0].axis('tight')
+axs[0].axis('off')
+x = list(range(len(timings)))
+function_names = list(map(lambda x: x[0], timings))
+runtimes = list(map(lambda x: x[2], timings))
+cell_text = list(map(lambda x: [x[1],x[2]], timings))
+axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
+axs[1].bar(x, runtimes)
+plt.xticks(x, x)
+plt.savefig(image_name4, transparent=True)
 
 print("Image files:")
 print(image_name1)
