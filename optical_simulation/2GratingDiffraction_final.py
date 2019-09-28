@@ -120,7 +120,7 @@ current_path = os.path.abspath(os.path.dirname(__file__))
 image_output_path = os.path.join(current_path, 'image_output', imageSubdir)
 
 if not os.path.exists(image_output_path):
-    os.mkdir(image_output_path)
+    os.makedirs(image_output_path)
 
 image_name1 = os.path.join(image_output_path, 'dottedProfile1.png')
 image_name2 = os.path.join(image_output_path, 'dottedProfile2.png')
