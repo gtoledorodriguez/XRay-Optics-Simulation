@@ -8,3 +8,5 @@ __pycache__/
 
 # Output files
 image_output/
+
+.ipynb_checkpoints/
