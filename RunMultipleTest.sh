@@ -5,10 +5,10 @@
 #python -m optical_simulation.2GratingDiffraction_final --imageSubdir=slitHeight3 --slitHeight=3
 
 
-for (( n=1; n<=3; n++ )); do
+for (( n=0; n<=1000; n+=250 )); do
     echo "$n"
 
-    python -m optical_simulation.2GratingDiffraction_final --imageSubdir="slitHeight${n}" --slitHeight="${n}"
+    python -m optical_simulation.2GratingDiffraction_final --imageSubdir="numObsPoints${n}" --numObsPoints="${n}"
     ls $n
 
 done
