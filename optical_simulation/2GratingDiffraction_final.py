@@ -10,7 +10,6 @@ from time import strftime
 from time import time
 from typing import Tuple, List
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 from numba import cuda
@@ -88,6 +87,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         nargs='+',
                         help='Used to save images to a different subfolder. Useful for running multiple batches and examining images later.')
 
+    parser.add_argument('--transparentImages',
+                        default=False,
+                        type=bool,
+                        help='Should output images be transparent?')
+
     # TODO: Fill in the rest of the arguments
 
     return parser.parse_args()
@@ -107,6 +111,7 @@ runNum = args.runNum  # Used to dynamically name files. Change every time you ru
 spacingType = args.spacingType
 U_0 = args.U_0
 imageSubdirs = args.imageSubdirs
+transparency = args.transparentImages
 
 wavenumber = 2 * np.pi / wavelength
 newSimulation = False
@@ -141,10 +146,11 @@ screenEnd = 1e7
 timings = []
 initial_time = int(round(time() * 1000))
 
-def add_time(function_name):
 
+def add_time(function_name):
     x = int(round(time() * 1000))
     timings.append([function_name, strftime("%Y/%m/%d %H:%M:%S"), x])
+
 
 # create array of positions that represent an observing screen
 
@@ -221,7 +227,7 @@ plt.plot(firstGrating.pointSourcePositions, firstGrating.pointSourceAmplitudes, 
 plt.xlabel('Position on First Grating (nm)', fontsize=25)
 plt.ylabel('Amplitude', fontsize=25)
 plt.title('Incident on First Grating', fontsize=30)
-plt.savefig(image_name1, transparent=False)
+plt.savefig(image_name1, transparent=transparency)
 # plt.show()
 
 plt.figure(figsize=(15, 8))
@@ -229,7 +235,7 @@ plt.plot(secondGrating.pointSourcePositions, intensities, '.r')
 plt.xlabel('Position on Second Grating (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Incident on Second Grating', fontsize=30)
-plt.savefig(image_name2, transparent=False)
+plt.savefig(image_name2, transparent=transparency)
 # plt.show()
 
 maxIntensities2 = max(intensities2)
@@ -242,7 +248,7 @@ plt.plot(obsPositionsMicrons, intensities2, 'r')
 plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
 plt.ylabel('Normalized Intensity', fontsize=25)
 plt.title('Uniform Grating', fontsize=30)
-plt.savefig(image_name3, transparent=False)
+plt.savefig(image_name3, transparent=transparency)
 # plt.show()
 
 last_time = initial_time
@@ -251,17 +257,17 @@ for i in range(len(timings)):
     timings[i][2] -= last_time
     last_time = temp
 
-fig, axs =plt.subplots(2,1)
+fig, axs = plt.subplots(2, 1)
 axs[0].axis('tight')
 axs[0].axis('off')
 x = list(range(len(timings)))
 function_names = list(map(lambda x: x[0], timings))
 runtimes = list(map(lambda x: x[2], timings))
-cell_text = list(map(lambda x: [x[1],x[2]], timings))
+cell_text = list(map(lambda x: [x[1], x[2]], timings))
 axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
 axs[1].bar(x, runtimes)
 plt.xticks(x, x)
-plt.savefig(image_name4, transparent=True)
+plt.savefig(image_name4, transparent=transparency)
 
 print("Image files:")
 print(image_name1)
