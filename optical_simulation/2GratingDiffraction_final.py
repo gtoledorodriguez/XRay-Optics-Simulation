@@ -127,9 +127,6 @@ image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdirs[-1]
 image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
 image_name4 = os.path.join(image_output_path, '{}-4.png'.format(imageSubdirs[-1]))
 
-# over old data
-############################################################################################################
-
 print("Initializing variables: Done")
 
 # Observing screen size
