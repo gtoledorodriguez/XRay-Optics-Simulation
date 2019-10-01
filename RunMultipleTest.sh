@@ -34,7 +34,7 @@ if ! [[ -d "./optical_simulation/image_output/numObsPointsRuns/" ]]; then
     done
 fi
 
-num=$(awk 'BEGIN{for(i=1; i<=2; i+=0.25)print i}')
+num=$(awk 'BEGIN{for(i=0; i<=10000000000; i+=1000000000)print i}')
 if ! [[ -d "./optical_simulation/image_output/U_0/" ]]; then
     for n in $num; do
         python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "U_0" "u_0${n}" --U_0="${n}"
