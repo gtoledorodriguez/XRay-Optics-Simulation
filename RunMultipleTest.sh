@@ -6,13 +6,14 @@
 
 
 if ! [[ -d "./optical_simulation/image_output/timingTests" ]]; then
+    echo "Running timing tests..."
     for (( n=0; n<=5; n+=1)); do
         python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "timingTests" "timingTest${n}"
     done
 fi
 
-
 if ! [[ -d "./optical_simulation/image_output/pointSource_x_obsPoints" ]]; then
+    echo "Running tests varying point source number AND observation point number"
 
     # From 0 to 100 step 10 in point sources,
     for (( point_src=0; point_src<=100; point_src+=10)); do
@@ -29,6 +30,7 @@ fi
 
 # If we haven't ran the 'numOfPointSourcesRuns' simulations, then run a LARGE amount of those simulations and create that directory.
 if ! [[ -d "./optical_simulation/image_output/numOfPointSourcesRuns" ]]; then
+    echo "Running tests varying point source number..."
     for (( n=0; n<=1000; n+=100)); do
         python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "numOfPointSourcesRuns" "numOfPointSources${n}" --numOfPointSources="${n}"
     done
@@ -41,8 +43,9 @@ if ! [[ -d "./optical_simulation/image_output/numObsPointsRuns/" ]]; then
     done
 fi
 
-num=$(awk 'BEGIN{for(i=0; i<=10000000000; i+=1000000000)print i}')
+num=$(awk 'BEGIN{for(i=0; i<=10; i+=0.25)print i}')
 if ! [[ -d "./optical_simulation/image_output/U_0/" ]]; then
+    echo "Running tests varying U_0 number..."
     for n in $num; do
         python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "U_0" "u_0${n}" --U_0="${n}"
     done
