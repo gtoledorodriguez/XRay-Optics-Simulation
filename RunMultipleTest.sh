@@ -5,6 +5,13 @@
 #python -m optical_simulation.2GratingDiffraction_final --imageSubdirs slitHeight3 --slitHeight=3
 
 
+if ! [[ -d "./optical_simulation/image_output/timingTests" ]]; then
+    for (( n=0; n<=5; n+=1)); do
+        python -m optical_simulation.2GratingDiffraction_final --imageSubdirs "timingTests" "timingTest${n}"
+    done
+fi
+
+
 if ! [[ -d "./optical_simulation/image_output/pointSource_x_obsPoints" ]]; then
 
     # From 0 to 100 step 10 in point sources,
