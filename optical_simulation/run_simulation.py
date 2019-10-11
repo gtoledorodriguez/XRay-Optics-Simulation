@@ -129,10 +129,10 @@ def main():
 
     print("using this path to save images: {}".format(image_output_path))
 
-    image_name1 = os.path.join(image_output_path, '{}-1.png'.format(imageSubdirs[-1]))
-    image_name2 = os.path.join(image_output_path, '{}-2.png'.format(imageSubdirs[-1]))
-    image_name3 = os.path.join(image_output_path, '{}-3.png'.format(imageSubdirs[-1]))
-    image_name4 = os.path.join(image_output_path, '{}-4.png'.format(imageSubdirs[-1]))
+    image_first_grating_path = os.path.join(image_output_path, '{}-first-grating.png'.format(imageSubdirs[-1]))
+    image_second_grating_path = os.path.join(image_output_path, '{}-second-grating.png'.format(imageSubdirs[-1]))
+    image_normalized_intensity_path = os.path.join(image_output_path, '{}-normalized-intensity.png'.format(imageSubdirs[-1]))
+    image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
 
     print("Initializing variables: Done")
 
@@ -226,7 +226,7 @@ def main():
     plt.xlabel('Position on First Grating (nm)', fontsize=25)
     plt.ylabel('Amplitude', fontsize=25)
     plt.title('Incident on First Grating', fontsize=30)
-    plt.savefig(image_name1, transparent=transparency)
+    plt.savefig(image_first_grating_path, transparent=transparency)
     # plt.show()
 
     plt.figure(figsize=(15, 8))
@@ -234,7 +234,7 @@ def main():
     plt.xlabel('Position on Second Grating (nm)', fontsize=25)
     plt.ylabel('Normalized Intensity', fontsize=25)
     plt.title('Incident on Second Grating', fontsize=30)
-    plt.savefig(image_name2, transparent=transparency)
+    plt.savefig(image_second_grating_path, transparent=transparency)
     # plt.show()
 
     maxIntensities2 = max(intensities2)
@@ -247,7 +247,7 @@ def main():
     plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
     plt.ylabel('Normalized Intensity', fontsize=25)
     plt.title('Uniform Grating', fontsize=30)
-    plt.savefig(image_name3, transparent=transparency)
+    plt.savefig(image_normalized_intensity_path, transparent=transparency)
     # plt.show()
 
     last_time = initial_time
@@ -266,13 +266,13 @@ def main():
     axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
     axs[1].bar(x, runtimes)
     plt.xticks(x, x)
-    plt.savefig(image_name4, transparent=transparency)
+    plt.savefig(image_algorithm_runtime_path, transparent=transparency)
 
     print("Image files:")
-    print(image_name1)
-    print(image_name2)
-    print(image_name3)
-    print(image_name4)
+    print(image_first_grating_path)
+    print(image_second_grating_path)
+    print(image_normalized_intensity_path)
+    print(image_algorithm_runtime_path)
 
 
 if __name__ == '__main__':
