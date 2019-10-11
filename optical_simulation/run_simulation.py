@@ -21,6 +21,7 @@ from optical_simulation.gratingLib.InitialSource import InitialSource
 from pycallgraph import PyCallGraph
 from pycallgraph.output import GraphvizOutput
 
+
 def get_args_from_command_line() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -94,49 +95,54 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=bool,
                         help='Should output images be transparent?')
 
+    parser.add_argument('--callGraph',
+                        default=False,
+                        type=bool,
+                        help='Should there be a function call graph image saved?')
+
     # TODO: Fill in the rest of the arguments
 
     return parser.parse_args()
 
 
+args = get_args_from_command_line()
+screen_distance = args.screen_distance  # in nanometers
+screen_length = args.screen_length  # in nanometers
+second_grating_distance = args.second_grating_distance  # in nanometers
+wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
+numOfSlits = args.numOfSlits  # number of slits in each grating
+numOfPointSources = args.numOfPointSources  # number of point sources in each slit
+numObsPoints = args.numObsPoints  # number of observing points on the screen
+slitLength = args.slitLength  # nm
+slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
+runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
+spacingType = args.spacingType
+U_0 = args.U_0
+imageSubdirs = args.imageSubdirs
+transparency = args.transparentImages
+
+# Path to save images to.
+current_path = os.path.abspath(os.path.dirname(__file__))
+image_output_path = os.path.join(current_path, 'image_output', *imageSubdirs)
+
+image_first_grating_path = os.path.join(image_output_path, '{}-first-grating.png'.format(imageSubdirs[-1]))
+image_second_grating_path = os.path.join(image_output_path, '{}-second-grating.png'.format(imageSubdirs[-1]))
+image_normalized_intensity_path = os.path.join(image_output_path,
+                                               '{}-normalized-intensity.png'.format(imageSubdirs[-1]))
+image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
+image_call_graph_path = os.path.join(image_output_path, '{}-call-graph.png'.format(imageSubdirs[-1]))
+
+
 def main():
     """The main function. This runs the simulation."""
-    args = get_args_from_command_line()
-    screen_distance = args.screen_distance  # in nanometers
-    screen_length = args.screen_length  # in nanometers
-    second_grating_distance = args.second_grating_distance  # in nanometers
-    wavelength = args.wavelength  # nm is the de Broglie wavelength of muonium at 6300 meters/s
-    numOfSlits = args.numOfSlits  # number of slits in each grating
-    numOfPointSources = args.numOfPointSources  # number of point sources in each slit
-    numObsPoints = args.numObsPoints  # number of observing points on the screen
-    slitLength = args.slitLength  # nm
-    slitHeight = args.slitHeight  # Height of each slit in each grating (Used for 2D implementation)
-    runNum = args.runNum  # Used to dynamically name files. Change every time you run a simulation. Otherwise it will write
-    spacingType = args.spacingType
-    U_0 = args.U_0
-    imageSubdirs = args.imageSubdirs
-    transparency = args.transparentImages
 
     wavenumber = 2 * np.pi / wavelength
     newSimulation = False
 
     print(imageSubdirs)
 
-    # Path to save images to.
-    current_path = os.path.abspath(os.path.dirname(__file__))
-    image_output_path = os.path.join(current_path, 'image_output', *imageSubdirs)
-
     if not os.path.exists(image_output_path):
         os.makedirs(image_output_path)
-
-    print("using this path to save images: {}".format(image_output_path))
-
-    image_first_grating_path = os.path.join(image_output_path, '{}-first-grating.png'.format(imageSubdirs[-1]))
-    image_second_grating_path = os.path.join(image_output_path, '{}-second-grating.png'.format(imageSubdirs[-1]))
-    image_normalized_intensity_path = os.path.join(image_output_path, '{}-normalized-intensity.png'.format(imageSubdirs[-1]))
-    image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
-
-    print("Initializing variables: Done")
 
     # Observing screen size
     # center of screen will automatically be at 0.5e7 nm
@@ -278,8 +284,11 @@ def main():
 
 
 if __name__ == '__main__':
-    graphviz = GraphvizOutput()
-    graphviz.output_file = 'basic.png'
-    with PyCallGraph(output=graphviz):
-      main()
 
+    if args.callGraph:
+        graphviz = GraphvizOutput()
+        graphviz.output_file = image_call_graph_path
+        with PyCallGraph(output=graphviz):
+            main()
+    else:
+        main()
