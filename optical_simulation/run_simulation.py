@@ -18,6 +18,8 @@ from optical_simulation.cudaKernels import intensityCalculations
 from optical_simulation.gratingLib.Grating import Grating
 from optical_simulation.gratingLib.InitialSource import InitialSource
 
+from pycallgraph import PyCallGraph
+from pycallgraph.output import GraphvizOutput
 
 def get_args_from_command_line() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -276,4 +278,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    graphviz = GraphvizOutput()
+    graphviz.output_file = 'basic.png'
+    with PyCallGraph(output=graphviz):
+      main()
+
