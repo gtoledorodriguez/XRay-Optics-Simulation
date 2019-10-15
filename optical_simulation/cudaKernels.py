@@ -55,16 +55,19 @@ def intensityKernel(GratingSeparation, WaveNumber, sourcePoints, obsPoints, sour
     ampSum = 0
 
     # Iterates over every source point for this observation point
-    # TODO: Optomize code even more so we can increase number of threads and remove for loop
+    # TODO: Optimize code even more so we can increase number of threads and remove for loop
     for point in range(0, len(sourcePoints)):
         # Find the distance between source and observation point
         # dist = sqrt(x^2 + (source point - observation point)^2)
+
         dist = math.sqrt(GratingSeparation ** 2 + (obsPoints[pos] - sourcePoints[point]) ** 2)
+        # TODO: Is this calculation better to do on CPU or GPU?
+
         # Determine the phase between points
         phase = cmath.exp(1j * WaveNumber * dist)
         # find Amplitudes
         U = sourceAmp[point] * (phase.real + 1j * phase.imag) * (
-                    sourcePhase[point].real + 1j * sourcePhase[point].imag) / dist
+                sourcePhase[point].real + 1j * sourcePhase[point].imag) / dist
         # sum the totals
         phaseSum = phaseSum + phase
         ampSum = ampSum + U
