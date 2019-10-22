@@ -1,1 +1,1 @@
-python -m optical_simulation.2GratingDiffraction_final "$@"
+python -m optical_simulation.run_simulation "$@"
