@@ -155,7 +155,7 @@ def main():
 
     def add_time(function_name):
         x = int(round(time() * 1000))
-        timings.append([function_name, strftime("%Y/%m/%d %H:%M:%S"), x])
+        timings.append([function_name, x])
 
     # create array of positions that represent an observing screen
 
@@ -260,22 +260,28 @@ def main():
 
     last_time = initial_time
     for i in range(len(timings)):
-        temp = timings[i][2]
-        timings[i][2] -= last_time
+        temp = timings[i][1]
+        timings[i][1] -= last_time
         last_time = temp
 
-    fig, axs = plt.subplots(2, 1)
-    axs[0].axis('tight')
-    axs[0].axis('off')
+    print(str(timings))
+
+    fig, axs = plt.subplots(ncols=2, figsize=(8, 4))
+    #   axs[0].axis('tight')
+    axs[1].axis('off')
     x = list(range(len(timings)))
     function_names = list(map(lambda x: x[0], timings))
-    runtimes = list(map(lambda x: x[2], timings))
-    cell_text = list(map(lambda x: [x[1], x[2]], timings))
-    axs[0].table(cellText=timings, colLabels=['Function', 'Timestamp', 'Runtime'], loc='center')
-    axs[1].bar(x, runtimes)
-    plt.xticks(x, x)
-    plt.savefig(image_algorithm_runtime_path, transparent=transparency)
+    runtimes = list(map(lambda x: x[1], timings))
+    function_numbers = list(range(len(timings)))
+    cell_text = list(map(lambda i: [function_numbers[i], timings[i][0], timings[i][1]], range(len(timings))))
 
+    table = axs[1].table(cellText=cell_text, colLabels=['#','Function', 'Runtime'], loc='center').auto_set_column_width([0,1,2])
+    bar = axs[0].bar(x, runtimes)
+    plt.xticks(x, x)
+    plt.xlabel('Function #', fontsize=20)
+    plt.ylabel('Runtime (ms)', fontsize=20)
+    plt.savefig(image_algorithm_runtime_path, transparent=transparency)
+    plt.show()
     print("Image files:")
     print(image_first_grating_path)
     print(image_second_grating_path)
