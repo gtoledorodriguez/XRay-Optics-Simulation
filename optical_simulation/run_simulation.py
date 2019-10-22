@@ -95,6 +95,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=bool,
                         help='Should output images be transparent?')
 
+    parser.add_argument('--showImages',
+                        default=False,
+                        type=bool,
+                        help='Should images be shown?')
+
     parser.add_argument('--callGraph',
                         default=False,
                         type=bool,
@@ -120,6 +125,7 @@ spacingType = args.spacingType
 U_0 = args.U_0
 imageSubdirs = args.imageSubdirs
 transparency = args.transparentImages
+shouldShowImages = args.showImages
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
@@ -275,13 +281,17 @@ def main():
     function_numbers = list(range(len(timings)))
     cell_text = list(map(lambda i: [function_numbers[i], timings[i][0], timings[i][1]], range(len(timings))))
 
-    table = axs[1].table(cellText=cell_text, colLabels=['#','Function', 'Runtime'], loc='center').auto_set_column_width([0,1,2])
+    table = axs[1].table(cellText=cell_text, colLabels=['#', 'Function', 'Runtime'],
+                         loc='center').auto_set_column_width([0, 1, 2])
     bar = axs[0].bar(x, runtimes)
     plt.xticks(x, x)
     plt.xlabel('Function #', fontsize=20)
     plt.ylabel('Runtime (ms)', fontsize=20)
     plt.savefig(image_algorithm_runtime_path, transparent=transparency)
-    plt.show()
+
+    if shouldShowImages:
+        plt.show()
+
     print("Image files:")
     print(image_first_grating_path)
     print(image_second_grating_path)
