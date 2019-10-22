@@ -117,12 +117,12 @@ def intensityCalculations(GratingSeparation, WaveNumber, sourcePoints, obsPoints
     # Cast datatypes so the kernel does not complain
     GratingSeparation = float(GratingSeparation)
     WaveNumber = float(WaveNumber)
-    sourcePoints = np.array(sourcePoints, dtype='f4')
-    obsPoints = np.array(obsPoints, dtype='f4')
-    sourcePhase = np.array(sourcePhase, dtype='c8')
-    out_p = np.array(out_p, dtype='c8')
-    out_a = np.array(out_a, dtype='f4')
-    out_i = np.array(out_i, dtype='f4')
+    sourcePoints = np.array(sourcePoints, dtype='f4')  # 32-bit float array, 4 bytes
+    obsPoints = np.array(obsPoints, dtype='f4')  # 32-bit float array, 4 bytes
+    sourcePhase = np.array(sourcePhase, dtype='c8')  # 64-bit complex array, 8 bytes
+    out_p = np.array(out_p, dtype='c8')  # 64-bit complex array, 8 bytes
+    out_a = np.array(out_a, dtype='f4')  # 32-bit float array, 4 bytes
+    out_i = np.array(out_i, dtype='f4')  # 32-bit float array, 4 bytes
 
 
     evt_total_begin = cuda.event()
