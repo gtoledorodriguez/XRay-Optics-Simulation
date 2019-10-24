@@ -63,7 +63,7 @@ def get_args_from_command_line() -> argparse.Namespace:
     parser.add_argument('--numOfPointSources',
                         default=100,
                         type=int,
-                        help='Number of point sources in eac slit')
+                        help='Number of point sources in each slit')
 
     parser.add_argument('--numObsPoints',
                         default=1000,
@@ -105,6 +105,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=bool,
                         help='Should there be a function call graph image saved?')
 
+    parser.add_argument('--useRealisticParameters',
+                        default=False,
+                        type=bool,
+                        help='Use realistic simulation parameters. This should take a long time.')
+
     # TODO: Fill in the rest of the arguments
 
     return parser.parse_args()
@@ -126,6 +131,13 @@ U_0 = args.U_0
 imageSubdirs = args.imageSubdirs
 transparency = args.transparentImages
 shouldShowImages = args.showImages
+shouldUseRealisticParameters = args.useRealisticParameters
+
+# Should we use realistic presets?
+if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
+    numOfSlits = 250
+    #TODO: Add more parameters
+
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
