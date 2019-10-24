@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+conda activate agis
+
 # Path to the CUDA binary folder.
 CUDA_DIR="/usr/local/cuda-9.1/bin/"
 
