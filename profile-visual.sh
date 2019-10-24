@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Path to the CUDA binary folder.
-CUDA_DIR="/usr/local/cuda-9.1/bin/"
+source ./options.sh # Include file.
 
 echo "Don't forget to change the working directory!"
 sleep 1
