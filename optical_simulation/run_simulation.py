@@ -52,7 +52,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
-                        default=15000,
+                        default=15,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
@@ -137,6 +137,7 @@ shouldUseRealisticParameters = args.useRealisticParameters
 # Should we use realistic presets?
 if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
     numOfSlits = 66399336
+    slitHeight = 15000
     #TODO: Add more parameters
     raise NotImplementedError
 
