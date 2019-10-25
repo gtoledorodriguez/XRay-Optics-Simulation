@@ -138,6 +138,7 @@ shouldUseRealisticParameters = args.useRealisticParameters
 if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
     numOfSlits = 66399336
     #TODO: Add more parameters
+    raise NotImplementedError
 
 
 # Path to save images to.
