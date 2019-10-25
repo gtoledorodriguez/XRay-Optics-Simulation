@@ -135,7 +135,7 @@ shouldUseRealisticParameters = args.useRealisticParameters
 
 # Should we use realistic presets?
 if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
-    numOfSlits = 250
+    numOfSlits = 66399336
     #TODO: Add more parameters
 
 
