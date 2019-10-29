@@ -135,12 +135,9 @@ shouldShowImages = args.showImages
 shouldUseRealisticParameters = args.useRealisticParameters
 
 # Should we use realistic presets?
-if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
-    numOfSlits = 66399336
-    slitHeight = 15000
-    #TODO: Add more parameters
-    raise NotImplementedError
-
+if shouldUseRealisticParameters:
+    numOfSlits = 66399336  # TODO: Where does this number come from?
+    slitHeight = 15000  # TODO: Where does this number come from?
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
