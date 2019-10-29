@@ -5,6 +5,7 @@ Created on Sun Oct 15 17:21:19 2017
 
 """
 import argparse
+from memory_profiler import profile
 import os  # Used in file saving function
 from time import strftime
 from time import time
@@ -153,7 +154,7 @@ image_normalized_intensity_path = os.path.join(image_output_path,
 image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
 image_call_graph_path = os.path.join(image_output_path, '{}-call-graph.png'.format(imageSubdirs[-1]))
 
-
+@profile
 def main():
     """The main function. This runs the simulation."""
 
@@ -312,7 +313,6 @@ def main():
     print(image_second_grating_path)
     print(image_normalized_intensity_path)
     print(image_algorithm_runtime_path)
-
 
 if __name__ == '__main__':
 
