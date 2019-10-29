@@ -25,10 +25,11 @@ from pycallgraph.output import GraphvizOutput
 def get_args_from_command_line() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
+    """think the use of screen-distance and second_grating_distance is redundant. if both are identical, should be 4.5cm instead of 5e7"""
     parser.add_argument('--screen_distance',
-                        default=5e7,
+                        default=4.5e7,
                         type=int,
-                        help='Not sure what this is exactly. Contact group or review code.')
+                        help='Distance between the two gratings')
 
     parser.add_argument('--screen_length',
                         default=1e7,
@@ -36,7 +37,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='Not sure what this is exactly. Contact group or review code.')
 
     parser.add_argument('--second_grating_distance',
-                        default=5e7,
+                        default=4.5e7,
                         type=int,
                         help='Not sure what this is exactly. Contact group or review code.')
 
@@ -51,7 +52,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='The initial amplitude of the point source')
 
     parser.add_argument('--slitHeight',
-                        default=5,
+                        default=15,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
@@ -136,6 +137,7 @@ shouldUseRealisticParameters = args.useRealisticParameters
 # Should we use realistic presets?
 if shouldUseRealisticParameters: #TODO: Determine realistic simulation parameters.
     numOfSlits = 66399336
+    slitHeight = 15000
     #TODO: Add more parameters
     raise NotImplementedError
 
