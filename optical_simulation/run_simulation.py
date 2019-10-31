@@ -137,8 +137,10 @@ shouldUseRealisticParameters = args.useRealisticParameters
 
 # Should we use realistic presets?
 if shouldUseRealisticParameters:
-    numOfSlits = 66399336  # TODO: Where does this number come from?
-    slitHeight = 15000  # TODO: Where does this number come from?
+    numOfSlits = 66399336
+    # Add math from notebook for explanation
+    slitHeight = 15000
+    # Add math from notebook for explanation
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
@@ -150,6 +152,7 @@ image_normalized_intensity_path = os.path.join(image_output_path,
                                                '{}-normalized-intensity.png'.format(imageSubdirs[-1]))
 image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
 image_call_graph_path = os.path.join(image_output_path, '{}-call-graph.png'.format(imageSubdirs[-1]))
+
 
 @profile
 def main():
@@ -310,6 +313,7 @@ def main():
     print(image_second_grating_path)
     print(image_normalized_intensity_path)
     print(image_algorithm_runtime_path)
+
 
 if __name__ == '__main__':
 
