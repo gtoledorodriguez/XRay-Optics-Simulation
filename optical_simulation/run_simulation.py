@@ -27,8 +27,10 @@ def get_args_from_command_line() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     """think the use of screen-distance and second_grating_distance is redundant. if both are identical, should be 4.5cm instead of 5e7"""
+
+    """should be 4.5e7 but is 5e7 for sake of consistency when comparing to previous tests"""
     parser.add_argument('--screen_distance',
-                        default=4.5e7,
+                        default=5e7,
                         type=int,
                         help='Distance between the two gratings')
 
@@ -37,8 +39,10 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Not sure what this is exactly. Contact group or review code.')
 
+
+    """should be 4.5e7 but is 5e7 for sake of consistency when comparing to previous tests"""
     parser.add_argument('--second_grating_distance',
-                        default=4.5e7,
+                        default=5e7,
                         type=int,
                         help='Not sure what this is exactly. Contact group or review code.')
 
@@ -52,11 +56,13 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=float,
                         help='The initial amplitude of the point source')
 
+    """slitHeight should be used as 15000 nanometers but too big"""
     parser.add_argument('--slitHeight',
-                        default=15,
+                        default=5,
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
+    """number of slits doesnt correlate with 1cm/(slitheight*slitlength) - use small numbers to just quickly run simulation for performance"""
     parser.add_argument('--numOfSlits',
                         default=200,
                         type=int,
@@ -141,6 +147,8 @@ if shouldUseRealisticParameters:
     # Add math from notebook for explanation
     slitHeight = 15000
     # Add math from notebook for explanation
+    second_grating_distance = 4.5e7
+    screen_distance = 4.5e7K
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
