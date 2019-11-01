@@ -14,3 +14,6 @@ image_output/
 .ipynb_checkpoints/
 
 mprofile_*.dat
+
+# Test work dir
+out/
