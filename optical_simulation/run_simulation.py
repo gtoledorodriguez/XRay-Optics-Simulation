@@ -148,7 +148,7 @@ if shouldUseRealisticParameters:
     slitHeight = 15000
     # Add math from notebook for explanation
     second_grating_distance = 4.5e7
-    screen_distance = 4.5e7K
+    screen_distance = 4.5e7
 
 # Path to save images to.
 current_path = os.path.abspath(os.path.dirname(__file__))
