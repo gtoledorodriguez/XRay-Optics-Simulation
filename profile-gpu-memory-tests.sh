@@ -36,7 +36,8 @@ echo "Generating CSV file at ${OUT_CSV}."
 echo "There is no way that I can find to fill the memory transferred to CPU<->GPU by hand. That will have to be done
 by opening the .prof files in the output directory."
 
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),memory-transferred" > ${OUT_CSV}
+# This does not overwrite your CSV in the case that you added stuff.
+echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),memory-transferred" >> ${OUT_CSV}
 
 for f in ${OUT_DIR}/*-point-source.txt; do
 
