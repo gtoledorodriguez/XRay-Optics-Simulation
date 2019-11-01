@@ -3,12 +3,20 @@
 source ./options.sh # Include file.
 
 echo "Use these settings for nvvp:"
-echo "Toolkit/Script: CUDA Toolkit 9.1 (/usr/local/cuda-9.1/bin/)"
-echo "File: /home/YOUR_USERNAME/miniconda3/envs/agis/bin/python3.7"
-echo "Working directory: /home/YOUR_USERNAME/GitHub/XRay-Optics-Simulation/"
+echo "Toolkit/Script: CUDA Toolkit 9.1 (/usr/local/cuda-9.1/bin/)
+"
+
+echo "The executable file is the Python 3 env that has all necessary dependencies, like numba, etc."
+echo "Executable file: /home/`whoami`/miniconda3/envs/agis/bin/python3.7
+"
+
+echo "The working directory should be the place you have cloned the repo."
+echo "Working directory: WORK_DIR/XRay-Optics-Simulation/
+"
+
 echo "Arguments: '-m optical_simulation.run_simulation'"
 
 sleep 3
 
 # Nvidia visual profiler
-${CUDA_DIR}/nvvp "python -m optical_simulation.run_simulation"
+${CUDA_DIR}/nvvp "python -m optical_simulation.run_simulation" &
