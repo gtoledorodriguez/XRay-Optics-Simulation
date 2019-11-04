@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
 
-conda activate agis
+DESIRED_CONDA_ENV='agis'
+
+if ! hash conda &> /dev/null; then
+    echo "Conda does not seem to be a command. Is it installed?"
+    exit 1
+fi
+
+case ${CONDA_DEFAULT_ENV} in
+${DESIRED_CONDA_ENV})
+    echo "Using '$DESIRED_CONDA_ENV' as conda environment."
+   ;;
+*)
+    echo "Current conda environment '$CONDA_DEFAULT_ENV' != '${DESIRED_CONDA_ENV}'! Did you forget to run 'conda activate ${DESIRED_CONDA_ENV}'?";
+    exit 1
+    ;;
+esac
 
 # Path to the CUDA binary folder.
 CUDA_DIR="/usr/local/cuda-9.1/bin/"
