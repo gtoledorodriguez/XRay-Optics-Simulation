@@ -6,6 +6,7 @@
 #
 
 import sys
+import unittest
 
 conversions = {
     'k': 1E3,  # kilo
@@ -44,8 +45,10 @@ def normalize_si_bytes_number(num: str) -> float:
         return float(num)
 
 
-assert (normalize_si_bytes_number('100.01') == 100.01)
-assert (normalize_si_bytes_number('1.01k') == (1.01 * 1000))
+tc = unittest.TestCase()
+tc.assertEqual(normalize_si_bytes_number('100.01'), 100.01)
+tc.assertEqual(normalize_si_bytes_number('1.01k'), (1.01 * 1E3))
+tc.assertEqual(normalize_si_bytes_number('12MB'), (12.0 * 1E6))
 
 if __name__ == '__main__':
 

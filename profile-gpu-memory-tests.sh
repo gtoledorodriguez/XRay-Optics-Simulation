@@ -58,28 +58,36 @@ for f in ${OUT_DIR}/*-point-source.txt; do
 
     aline=""
 
+    # The source points from the filename. TODO: This is poor form to encode the source points here.
     aline+=$(echo "${f}" | tr -dc '0-9')
     aline+=","
 
+    # total time it took to run the sim
     aline+=$(cat ${f} | grep "total time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
+    # Time to transfer data from memory to GPU
     aline+=$(cat ${f} | grep "mem-to-gpu time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
+    # Time to run gpu sims
     aline+=$(cat ${f} | grep "kernel time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
+    # Height of slit. Currently static.
     aline+=${SLITHEIGHT}
     aline+=","
 
+    # Observation points. Currently static.
     aline+=${OBSPOINTS}
     aline+=","
 
+    # GPU->CPU memory transfer total in bytes
     echo "GPU to CPU mem transfer: (d to h)" # gpu to cpu
     aline+=$(cat ${f} | grep "DtoH" | awk '{print $8}' | python3 scripts/byte_adder.py)
     aline+=","
 
+    # CPU->GPU memory transfer total in bytes
     echo "CPU to GPU mem transfer: (h to d)" # cpu to gpu
     aline+=$(cat ${f} | grep "HtoD" | awk '{print $8}' | python3 scripts/byte_adder.py)
 #    aline+=","
