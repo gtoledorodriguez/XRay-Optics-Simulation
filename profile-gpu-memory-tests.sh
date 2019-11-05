@@ -11,13 +11,13 @@ mkdir -p ${OUT_DIR}
 
 # List of point sources to try
 POINTSOURCES=(100 200 300)
-#POINTSOURCES=(20)
+#POINTSOURCES=(20) # DEBUG
 
 SLITHEIGHT=100 #15000 is realistic.
-#SLITHEIGHT=20 #15000 is realistic.
+#SLITHEIGHT=5 # DEBUG
 
-OBSPOINTS=100
-#OBSPOINTS=30
+OBSPOINTS=150
+#OBSPOINTS=30 # DEBUG
 
 # Generate results
 for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
