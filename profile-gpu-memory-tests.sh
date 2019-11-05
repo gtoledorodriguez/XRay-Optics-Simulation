@@ -44,7 +44,7 @@ echo "There is no way that I can find to fill the memory transferred to CPU<->GP
 by opening the .prof files in the output directory."
 
 # This does not overwrite your CSV in the case that you added stuff.
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,memory-transferred" >> ${OUT_CSV}
+echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,memory-transferred" > ${OUT_CSV}
 
 for f in ${OUT_DIR}/*-point-source.txt; do
 
