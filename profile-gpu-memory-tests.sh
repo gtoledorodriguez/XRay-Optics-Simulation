@@ -11,25 +11,33 @@ mkdir -p ${OUT_DIR}
 
 # List of point sources to try
 POINTSOURCES=(100 200 300)
-#POINTSOURCES=(20) # DEBUG
 
 SLITHEIGHT=100 #15000 is realistic.
-#SLITHEIGHT=5 # DEBUG
 
 OBSPOINTS=150
-#OBSPOINTS=30 # DEBUG
 
-# Generate results
+## DEBUG PARAMS: These are fast but not realistic!
+#POINTSOURCES=(20)
+#SLITHEIGHT=5
+#OBSPOINTS=30
+
+
+# Vary point sources
 for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
+
+    # One of n point sources
     numpointsource=${POINTSOURCES[i]}
 
+    # Place to redirect stdout of the nvprof command
     OUT_FILENAME="${OUT_DIR}/${numpointsource}-point-source.txt"
     OUT_PROFILE_NAME="${OUT_DIR}/${numpointsource}-point-source.prof"
 
+    # If stdout file from nvprof command does not exist,
     if [[ ! -f ${OUT_DIR}/${numpointsource}-point-source.txt ]]; then
         echo "Have not run GPU memory test for ${numpointsource} point sources yet. Running..."
 
-        ${CUDA_DIR}/nvprof --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
+        # Run the profiling command.
+        ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
             python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
             --numObsPoints $OBSPOINTS > ${OUT_FILENAME} 2>&1
     else
@@ -44,7 +52,7 @@ echo "There is no way that I can find to fill the memory transferred to CPU<->GP
 by opening the .prof files in the output directory."
 
 # This does not overwrite your CSV in the case that you added stuff.
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,memory-transferred" > ${OUT_CSV}
+echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,memory-transferred-total-DtoH,memory-transferred-total-HtoD" > ${OUT_CSV}
 
 for f in ${OUT_DIR}/*-point-source.txt; do
 
@@ -68,7 +76,12 @@ for f in ${OUT_DIR}/*-point-source.txt; do
     aline+=${OBSPOINTS}
     aline+=","
 
-    aline+="REPLACE ME; see the .prof files. I don't know how to extract how much memory is transferred via command line."
+    echo "GPU to CPU mem transfer: (d to h)" # gpu to cpu
+    aline+=$(cat ${f} | grep "DtoH" | awk '{print $8}' | python3 scripts/byte_adder.py)
+    aline+=","
+
+    echo "CPU to GPU mem transfer: (h to d)" # cpu to gpu
+    aline+=$(cat ${f} | grep "HtoD" | awk '{print $8}' | python3 scripts/byte_adder.py)
 #    aline+=","
 
     echo ${aline} >> ${OUT_CSV}
