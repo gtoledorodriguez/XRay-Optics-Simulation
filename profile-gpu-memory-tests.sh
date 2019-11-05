@@ -29,7 +29,7 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
     if [[ ! -f ${OUT_DIR}/${numpointsource}-point-source.txt ]]; then
         echo "Have not run GPU memory test for ${numpointsource} point sources yet. Running..."
 
-        ${CUDA_DIR}/nvprof --analysis-metrics --unified-memory-profiling per-process-device --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
+        ${CUDA_DIR}/nvprof --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
             python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
             --numObsPoints $OBSPOINTS > ${OUT_FILENAME} 2>&1
     else
