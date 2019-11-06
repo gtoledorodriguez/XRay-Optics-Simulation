@@ -37,10 +37,6 @@ def normalize_si_bytes_number(num: str) -> float:
     # Lowercase, remove 'b', remove whitespace.
     num = num.lower().replace('b', '').strip()
 
-    # Base number w/o SI unit
-    numeric_base: float = None
-    si_number: float = None
-
     # print("Line: " + num)
 
     # If the end of the line ends with an SI suffix,
