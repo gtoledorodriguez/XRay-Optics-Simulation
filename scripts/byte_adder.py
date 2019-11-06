@@ -18,6 +18,7 @@ conversions = {
 
 
 def normalize_si_bytes_number(num: str) -> float:
+    # Lowercase, remove 'b', remove whitespace.
     num = num.lower().replace('b', '').strip()
 
     # Base number w/o SI unit
@@ -59,4 +60,3 @@ if __name__ == '__main__':
 
     print(total)
 
-# Lowercase, remove 'b', remove whitespace.
