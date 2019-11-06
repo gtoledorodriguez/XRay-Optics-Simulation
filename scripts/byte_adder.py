@@ -7,6 +7,7 @@
 
 import sys
 import unittest
+from typing import List
 
 conversions = {
     'k': 1E3,  # kilo
@@ -17,7 +18,22 @@ conversions = {
 }
 
 
+def sum_si_bytes(l: List[str]) -> float:
+    """Sum a list of strings that are SI byte-suffixed values."""
+
+    total = 0
+
+    for line in l:
+        total += (normalize_si_bytes_number(line))
+
+    return total
+
+
 def normalize_si_bytes_number(num: str) -> float:
+    """
+    :param num: a number in the format 1234.34MB
+    :return: Its size in bytes.
+    """
     # Lowercase, remove 'b', remove whitespace.
     num = num.lower().replace('b', '').strip()
 
@@ -51,12 +67,12 @@ tc.assertEqual(normalize_si_bytes_number('100.01'), 100.01)
 tc.assertEqual(normalize_si_bytes_number('1.01k'), (1.01 * 1E3))
 tc.assertEqual(normalize_si_bytes_number('12MB'), (12.0 * 1E6))
 
+tc.assertEqual(
+    sum_si_bytes([
+        '100.01', '1.01k', '12MB'
+    ]),
+    sum([100.01, (1.01 * 1E3), (12.0 * 1E6)])
+)
+
 if __name__ == '__main__':
-
-    total = 0
-
-    for line in sys.stdin:
-        total += (normalize_si_bytes_number(line))
-
-    print(total)
-
+    print(sum_si_bytes(sys.stdin))
