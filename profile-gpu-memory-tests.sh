@@ -12,7 +12,7 @@ mkdir -p ${OUT_DIR}
 # List of point sources to try
 POINTSOURCES=(100 200 300)
 
-SLITHEIGHT=100 #15000 is realistic.
+SLITHEIGHT=50 #15000 is realistic.
 
 OBSPOINTS=150
 
