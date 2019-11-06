@@ -58,7 +58,10 @@ for f in ${OUT_DIR}/*-point-source.txt; do
 
     aline=""
 
-    # The source points from the filename. TODO: This is poor form to encode the source points here.
+    # The source points from the filename.
+    # TODO: This is poor form to encode the source points here.
+    # TODO: Ideally, we should be able to run over a matrix of varying parameters and see how they all affect runtime.
+    # TODO: This information should be encoded elsewhere.
     aline+=$(echo "${f}" | tr -dc '0-9')
     aline+=","
 
