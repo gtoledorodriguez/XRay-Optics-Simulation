@@ -10,7 +10,7 @@ source ./options.sh # Include file.
 mkdir -p ${OUT_DIR}
 
 # List of point sources to try
-POINTSOURCES=(100 200 300)
+POINTSOURCES=(100 200 300 400 500)
 
 SLITHEIGHT=50 #15000 is realistic.
 
@@ -48,8 +48,6 @@ done
 
 # From results, generate CSV file
 echo "Generating CSV file at ${OUT_CSV}."
-echo "There is no way that I can find to fill the memory transferred to CPU<->GPU by hand. That will have to be done
-by opening the .prof files in the output directory."
 
 # This does not overwrite your CSV in the case that you added stuff.
 echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,bytes-transferred-total-DtoH,bytes-transferred-total-HtoD" > ${OUT_CSV}
