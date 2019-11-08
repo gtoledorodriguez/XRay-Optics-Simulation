@@ -5,6 +5,8 @@ Created on Sun Oct 15 17:21:19 2017
 
 """
 import argparse
+
+from guppy import hpy
 from memory_profiler import profile
 import os  # Used in file saving function
 from time import strftime
@@ -38,7 +40,6 @@ def get_args_from_command_line() -> argparse.Namespace:
                         default=1e7,
                         type=int,
                         help='Not sure what this is exactly. Contact group or review code.')
-
 
     """should be 4.5e7 but is 5e7 for sake of consistency when comparing to previous tests"""
     parser.add_argument('--second_grating_distance',
@@ -162,7 +163,8 @@ image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-run
 image_call_graph_path = os.path.join(image_output_path, '{}-call-graph.png'.format(imageSubdirs[-1]))
 
 
-@profile
+# Uncomment for line-by-line memory profiling info.
+# @profile
 def main():
     """The main function. This runs the simulation."""
 
@@ -321,6 +323,9 @@ def main():
     print(image_second_grating_path)
     print(image_normalized_intensity_path)
     print(image_algorithm_runtime_path)
+
+    print("Guppy3 mem usage info:")
+    print(hpy().heap())
 
 
 if __name__ == '__main__':
