@@ -17,6 +17,7 @@ SLITHEIGHT=50 #15000 is realistic.
 OBSPOINTS=150
 
 ## DEBUG PARAMS: These are fast but not realistic!
+#POINTSOURCES=(5 10 20)
 #POINTSOURCES=(5 10 20 30 40 50 60 70 80 90 100 200 300 400)
 #SLITHEIGHT=5
 #OBSPOINTS=30
@@ -50,7 +51,7 @@ done
 echo "Generating CSV file at ${OUT_CSV}."
 
 # This does not overwrite your CSV in the case that you added stuff.
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,bytes-transferred-total-DtoH,bytes-transferred-total-HtoD" > ${OUT_CSV}
+echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,bytes-ram-used-at-end,bytes-transferred-total-gpu-to-cpu (DtoH),bytes-transferred-total-cpu-to-to-gpu (HtoD)" > ${OUT_CSV}
 
 for f in ${OUT_DIR}/*-point-source.txt; do
 
@@ -63,15 +64,15 @@ for f in ${OUT_DIR}/*-point-source.txt; do
     aline+=$(echo "${f}" | tr -dc '0-9')
     aline+=","
 
-    # total time it took to run the sim
+    # total time in ms that it took to run the sim
     aline+=$(cat ${f} | grep "total time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
-    # Time to transfer data from memory to GPU
+    # Time in ms to transfer data from memory to GPU
     aline+=$(cat ${f} | grep "mem-to-gpu time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
-    # Time to run gpu sims
+    # Time in ms to run gpu sims
     aline+=$(cat ${f} | grep "kernel time:" | head -1 | tr -dc '0-9.')
     aline+=","
 
@@ -83,13 +84,18 @@ for f in ${OUT_DIR}/*-point-source.txt; do
     aline+=${OBSPOINTS}
     aline+=","
 
+    # RAM usage at the end of the simulation.
+    # get line with 'total size', get part after equals sign, strip non-numeric chars.
+    aline+=$(cat ${f} | grep " Total size =" | tr '=' "\n" | tail -1 | sed 's/[^0-9]*//g')
+    aline+=","
+
     # GPU->CPU memory transfer total in bytes
-    echo "GPU to CPU mem transfer: (d to h)" # gpu to cpu
+    # Get the eighth field and sum all bytes in that.
     aline+=$(cat ${f} | grep "DtoH" | awk '{print $8}' | python3 scripts/byte_adder.py)
     aline+=","
 
     # CPU->GPU memory transfer total in bytes
-    echo "CPU to GPU mem transfer: (h to d)" # cpu to gpu
+    # Get the eighth field and sum all bytes in that.
     aline+=$(cat ${f} | grep "HtoD" | awk '{print $8}' | python3 scripts/byte_adder.py)
 #    aline+=","
 
