@@ -13,4 +13,5 @@ dependencies:
 - matplotlib
 - jupyter
 - cudatoolkit=9.0
+- pandas
 ...
