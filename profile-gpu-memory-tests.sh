@@ -14,6 +14,8 @@ POINTSOURCES=(100 200 300 400 600 800 1200 1600)
 
 SLITHEIGHT=50 #15000 is realistic.
 
+NUMOFSLITS=200
+
 OBSPOINTS=150
 
 ## DEBUG PARAMS: These are fast but not realistic!
@@ -40,7 +42,7 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
         # Run the profiling command.
         ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
             python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
-            --numObsPoints $OBSPOINTS > ${OUT_FILENAME} 2>&1
+            --numObsPoints $OBSPOINTS --numOfSlits $NUMOFSLITS > ${OUT_FILENAME} 2>&1
     else
         echo "Already run GPU memory test for ${numpointsource} point sources. Skipping. Delete file at ${OUT_FILENAME} to run again."
     fi
@@ -51,7 +53,7 @@ done
 echo "Generating CSV file at ${OUT_CSV}."
 
 # This does not overwrite your CSV in the case that you added stuff.
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,obs-points,bytes-ram-used-at-end,bytes-transferred-total-gpu-to-cpu (DtoH),bytes-transferred-total-cpu-to-to-gpu (HtoD)" > ${OUT_CSV}
+echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,num-of-slits,obs-points,bytes-ram-used-at-end,bytes-transferred-total-gpu-to-cpu (DtoH),bytes-transferred-total-cpu-to-to-gpu (HtoD)" > ${OUT_CSV}
 
 for f in ${OUT_DIR}/*-point-source.txt; do
 
@@ -78,6 +80,10 @@ for f in ${OUT_DIR}/*-point-source.txt; do
 
     # Height of slit. Currently static.
     aline+=${SLITHEIGHT}
+    aline+=","
+
+    # Number of slits. Currently static.
+    aline+=${NUMOFSLITS}
     aline+=","
 
     # Observation points. Currently static.
