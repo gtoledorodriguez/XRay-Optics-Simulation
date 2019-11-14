@@ -18,7 +18,9 @@ Then run `python -m optical_simulation.run_simulation` to run the slit simulatio
 
 You can also run `python -m optical_simulation.demo.runMultiCoreTest` to run the multi-core test.
 
-There is a shell script called `RunMultipleTest.sh` that will run multiple simulations with slightly different parameters.
+There is a shell script called `RunMultipleTests.sh` that will run multiple simulations with slightly different parameters.
+
+There are also profiling scripts called `profile-*.sh`.
 
 ## Installing new packages
 
