@@ -21,6 +21,11 @@ from numba import cuda
 
 
 # This function gets called for every observation point
+
+@cuda.jit(device=True)
+def get_next():
+    return 0
+
 @cuda.jit
 def intensityKernel(GratingSeparation, WaveNumber, sourcePoints, obsPoints, sourceAmp, sourcePhase, out_phase, out_amp,
                     out_intense):
@@ -62,7 +67,7 @@ def intensityKernel(GratingSeparation, WaveNumber, sourcePoints, obsPoints, sour
         # Find the distance between source and observation point
         # dist = sqrt(x^2 + (source point - observation point)^2)
 
-        dist = math.sqrt(GratingSeparation ** 2 + (obsPoints[pos] - sourcePoints[point]) ** 2)
+        dist = cmath.sqrt(GratingSeparation ** 2 + (obsPoints[pos] - sourcePoints[point]) ** 2)
         # TODO: Is this calculation better to do on CPU or GPU?
 
         # Determine the phase between points
@@ -76,7 +81,7 @@ def intensityKernel(GratingSeparation, WaveNumber, sourcePoints, obsPoints, sour
     # Find Intensity
     intensitySum = (ampSum.real ** 2 + ampSum.imag ** 2)
     # take the square root of intensity
-    preservedAmp = math.sqrt(intensitySum)
+    preservedAmp = cmath.sqrt(intensitySum)
 
     # output results
     out_phase[pos] = phaseSum
@@ -106,6 +111,7 @@ def intensityCalculations(GratingSeparation, WaveNumber, sourcePoints, obsPoints
     """
     # Specify the number of CUDA threads
     arraySize = len(obsPoints)
+    print(str(arraySize))
     threadsperblock = 32
     blockspergrid = (arraySize + (threadsperblock - 1)) // threadsperblock
 
@@ -119,7 +125,9 @@ def intensityCalculations(GratingSeparation, WaveNumber, sourcePoints, obsPoints
     WaveNumber = float(WaveNumber)
     sourcePoints = np.array(sourcePoints, dtype='f4')  # 32-bit float array, 4 bytes
     obsPoints = np.array(obsPoints, dtype='f4')  # 32-bit float array, 4 bytes
+    sourceAmp = np.array(sourceAmp, dtype='f4')  # 32-bit float array, 4 bytes
     sourcePhase = np.array(sourcePhase, dtype='c8')  # 64-bit complex array, 8 bytes
+    print(str(list(map(len, [sourcePoints, obsPoints, sourceAmp, sourcePhase]))))
     out_p = np.array(out_p, dtype='c8')  # 64-bit complex array, 8 bytes
     out_a = np.array(out_a, dtype='f4')  # 32-bit float array, 4 bytes
     out_i = np.array(out_i, dtype='f4')  # 32-bit float array, 4 bytes

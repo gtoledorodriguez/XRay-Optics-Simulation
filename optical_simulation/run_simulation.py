@@ -62,7 +62,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=int,
                         help='Height of each slit in each grating (Used for 2D implementation)')
 
-    """number of slits doesnt correlate with 1cm/(slitheight*slitlength) - use small numbers to just quickly run simulation for performance"""
+    """number of slits doesnt correlate with 1cm/(slitheight*slitlength) - usesmall numbers to just quickly run simulation for performance"""
     parser.add_argument('--numOfSlits',
                         default=200,
                         type=int,
@@ -202,6 +202,8 @@ def main():
                            slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
     add_time("firstGrating")
     print("First grating done")
+    print(str(len(firstGrating.pointSourcePositions)))
+    return
 
     # Build second grating and fill with point sources
 
