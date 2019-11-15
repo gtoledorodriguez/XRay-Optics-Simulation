@@ -3,4 +3,4 @@
 source ./options.sh # Include file.
 
 # Nvidia command-line profiler
-${CUDA_DIR}/nvprof python -m optical_simulation.run_simulation
+${CUDA_DIR}/nvprof python3 -m optical_simulation.run_simulation
