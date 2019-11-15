@@ -43,7 +43,7 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
         # Run the profiling command.
         ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
             python -m optical_simulation.run_simulation \
-                --imageSubdirs "${OUT_IMAGES}" "${numpointsource}" \
+                --imageSubdirs "${OUT_IMAGES}" "${numpointsource}-point-sources" \
                 --slitHeight ${SLITHEIGHT} \
                 --numOfPointSources ${numpointsource} \
                 --numObsPoints ${OBSPOINTS} \
