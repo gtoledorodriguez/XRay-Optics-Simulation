@@ -4,7 +4,7 @@ echo "This file runs a series of tests that vary the amount of source points per
 usage will vary when increasing the number of source points."
 
 OUT_DIR="out/gpu-memory-tests/"
-OUT_IMAGES="out/gpu-memory-tests-img"
+OUT_IMAGES="gpu-memory-tests-imagefiles"
 OUT_CSV="out/gpu-memory-test.csv"
 
 source ./options.sh # Include file.
