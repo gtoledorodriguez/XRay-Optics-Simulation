@@ -12,7 +12,7 @@ The environment is called `agis`.
 
 Run `conda activate agis` to use the virtual environment configured with Conda for this project.
 
-Run `bash install_extra_dependencies` to install dependencies we cannot specify in the `environment.yml` file.
+Run `bash scripts/install_extra_conda_dependencies.sh` to install dependencies we cannot specify in the `environment.yml` file.
 
 Then run `python -m optical_simulation.run_simulation` to run the slit simulation.
 
