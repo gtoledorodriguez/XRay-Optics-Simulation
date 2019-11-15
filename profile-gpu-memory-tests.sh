@@ -10,7 +10,7 @@ source ./options.sh # Include file.
 mkdir -p ${OUT_DIR}
 
 # List of point sources to try
-POINTSOURCES=(100 200 300 400 600 800 1200 1600)
+POINTSOURCES=(5 25 50 75 100 200 300 400 600 800 1200 1600)
 
 SLITHEIGHT=50 #15000 is realistic.
 
