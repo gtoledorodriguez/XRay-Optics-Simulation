@@ -42,8 +42,12 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
 
         # Run the profiling command.
         ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
-            python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
-             --imageSubdirs "${OUT_IMAGES}" "${numpointsource}" --numObsPoints $OBSPOINTS --numOfSlits $NUMOFSLITS > ${OUT_FILENAME} 2>&1
+            python -m optical_simulation.run_simulation \
+                --imageSubdirs "${OUT_IMAGES}" "${numpointsource}" \
+                --slitHeight ${SLITHEIGHT} \
+                --numOfPointSources ${numpointsource} \
+                --numObsPoints ${OBSPOINTS} \
+                --numOfSlits ${NUMOFSLITS} > ${OUT_FILENAME} 2>&1
     else
         echo "Already run GPU memory test for ${numpointsource} point sources. Skipping. Delete file at ${OUT_FILENAME} to run again."
     fi
