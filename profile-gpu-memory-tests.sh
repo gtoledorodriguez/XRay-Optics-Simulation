@@ -4,6 +4,7 @@ echo "This file runs a series of tests that vary the amount of source points per
 usage will vary when increasing the number of source points."
 
 OUT_DIR="out/gpu-memory-tests/"
+OUT_IMAGES="out/gpu-memory-tests-img"
 OUT_CSV="out/gpu-memory-test.csv"
 
 source ./options.sh # Include file.
@@ -40,7 +41,7 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
         echo "Have not run GPU memory test for ${numpointsource} point sources yet. Running..."
 
         # Run the profiling command.
-        ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
+        ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} --imageSubdirs "${OUT_IMAGES}" "${numpointsource}" \
             python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
             --numObsPoints $OBSPOINTS --numOfSlits $NUMOFSLITS > ${OUT_FILENAME} 2>&1
     else
