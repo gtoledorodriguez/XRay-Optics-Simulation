@@ -3,14 +3,21 @@
 echo "This file runs a series of tests that vary the amount of source points per slit to see how runtime and memory \
 usage will vary when increasing the number of source points."
 
-OUT_DIR="out/gpu-memory-tests/"
-OUT_CSV="out/gpu-memory-test.csv"
+OUT_DIR="out/gpu-memory-tests/" # Directory to save the text files containing each process' stdout to.
+OUT_IMAGES="gpu-memory-tests-imagefiles" # Base directory for saving the images to.
+OUT_CSV="out/gpu-memory-test.csv" # Place to save the CSV file to.
+
+# Don't clobber their CSV if they don't know...
+if [[ -f ${OUT_CSV} ]]; then
+    echo "The file at ${OUT_CSV} will be destroyed after all tests run. You have 10 seconds to cancel this (CTRL-C)."
+    sleep 10s
+fi
 
 source ./options.sh # Include file.
-mkdir -p ${OUT_DIR}
+mkdir -p ${OUT_DIR} # Make directory unconditionally.
 
 # List of point sources to try
-POINTSOURCES=(100 200 300 400 600 800 1200 1600)
+POINTSOURCES=(5 25 50 75 100 200 300 400 600 800 1200 1600)
 
 SLITHEIGHT=50 #15000 is realistic.
 
@@ -41,8 +48,12 @@ for (( i = 0; i < ${#POINTSOURCES[@]}; ++i )); do
 
         # Run the profiling command.
         ${NVPROF_BIN} --print-gpu-trace --export-profile ${OUT_PROFILE_NAME} \
-            python -m optical_simulation.run_simulation --slitHeight ${SLITHEIGHT} --numOfPointSources ${numpointsource} \
-            --numObsPoints $OBSPOINTS --numOfSlits $NUMOFSLITS > ${OUT_FILENAME} 2>&1
+            python -m optical_simulation.run_simulation \
+                --imageSubdirs "${OUT_IMAGES}" "${numpointsource}-point-sources" \
+                --slitHeight ${SLITHEIGHT} \
+                --numOfPointSources ${numpointsource} \
+                --numObsPoints ${OBSPOINTS} \
+                --numOfSlits ${NUMOFSLITS} > ${OUT_FILENAME} 2>&1
     else
         echo "Already run GPU memory test for ${numpointsource} point sources. Skipping. Delete file at ${OUT_FILENAME} to run again."
     fi
@@ -52,9 +63,22 @@ done
 # From results, generate CSV file
 echo "Generating CSV file at ${OUT_CSV}."
 
-# This does not overwrite your CSV in the case that you added stuff.
-echo "sourcePoints,total-time (ms),mem-to-gpu-time (ms),kernel-time (ms),slit-height,num-of-slits,obs-points,bytes-ram-used-at-end,bytes-transferred-total-gpu-to-cpu (DtoH),bytes-transferred-total-cpu-to-to-gpu (HtoD)" > ${OUT_CSV}
+# This will destroy your CSV file.
+echo "sourcePoints,\
+total-time (ms),\
+mem-to-gpu-time (ms),\
+kernel-time (ms),\
+slit-height,\
+num-of-slits,\
+obs-points,\
+bytes-ram-used-at-end,\
+bytes-transferred-total-gpu-to-cpu (DtoH),\
+bytes-transferred-total-cpu-to-to-gpu (HtoD)" > ${OUT_CSV}
 
+# TODO: We are still encoding the source points in the filename itself.
+# TODO: This is poor form and parameters that vary should be stored in a JSON file or maybe an SQLITE database.
+# TODO: Alternatively, Python should be used to manage and run experiments on parameters instead of Bash because
+# TODO:     it is easier to model data with it. A re-write could make this shell script easier to use.
 for f in ${OUT_DIR}/*-point-source.txt; do
 
     aline=""
@@ -109,4 +133,4 @@ for f in ${OUT_DIR}/*-point-source.txt; do
 
 done
 
-cat ${OUT_CSV}
+cat ${OUT_CSV} # Echo the CSV to the user.
