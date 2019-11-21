@@ -1,8 +1,16 @@
 # X-Ray Optics Simulation
 
-## Running this code
+## Dependencies
 
-Install Conda with Python 3.6.
+You will need a computer with an NVIDIA GPU that supports CUDA.
+
+You will also need to use Linux. WSL may work. Virtualization will likely not work unless it offers GPU passthrough
+
+Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.
+
+Install the [NVIDIA CUDA Toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+
+## Running this code
 
 Run `conda deactivate` to deactivate the `base` environment.
 
