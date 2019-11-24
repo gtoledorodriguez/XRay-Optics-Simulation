@@ -143,6 +143,11 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                     grating.pointSourcePositions.append(source.y)
                     grating.pointSourceAmplitudes.append(source.amplitude)
 
+            fh = open('pspos.txt','w')
+            for pos in grating.pointSourcePositions:
+                fh.write(str(pos)+'\n')
+            fh.close()
+
 
 def makeSources(Slit, SlitHeight, amplitude, spacing_type):
     if spacing_type.lower() == "uniform":
