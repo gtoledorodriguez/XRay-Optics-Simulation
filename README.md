@@ -2,9 +2,29 @@
 
 ## Dependencies
 
+### Hardware/OS
+
 You will need a computer with an NVIDIA GPU that supports CUDA.
 
 You will also need to use Linux. WSL may work. Virtualization will likely not work unless it offers GPU passthrough.
+
+We used a system with the following configuration:
+
+#### CPU
+
+(2) Intel(R) Xeon(R) CPU E5-2630 v2 @ 2.60GHz
+
+#### Memory
+
+(5) Micron 4GB MT9JSF51272PZ-1G9E2
+
+### GPU
+
+(1) TITAN Xp
+
+(1) Tesla K40c
+
+### Software
 
 Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.
 
