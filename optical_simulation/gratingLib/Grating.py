@@ -33,9 +33,8 @@ class Grating:
         self.pointSourcePhases = newPhases
 
         for slit in self.slits:
-            for i in range(0, len(slit) - 1):
-                for source, newAmplitude in zip(slit[i].sources, newAmplitudes):
-                    source.amplitude = newAmplitude
+            for source, newAmplitude in zip(slit.sources, newAmplitudes):
+                source.amplitude = newAmplitude
 
 
 def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
@@ -50,7 +49,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # place a slit in the middle of the Grating.
         # Note: the y position of a slit is defined as its endpoint closest to the x axis
         center = grating.length / 2
-        thisSlit = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
+        thisSlit = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
         # thisSlit = Slit(Grating.x, center - slit_width/2, slit_width, num_sources, [])
         grating.slits.append(thisSlit)
         makeSources(thisSlit, slit_height, 0, source_spacing)
@@ -66,8 +65,8 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # place two slits, with one 'slit_width' of distance between them
 
         center = grating.length / 2
-        slit1 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
-        slit2 = [Slit(grating.x, center - slit_width / 2, slit_width, num_sources, []) for i in range(slit_height)]
+        slit1 = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
+        slit2 = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
         # slit1 = Slit(Grating.x, center - slit_width*1.5, slit_width, num_sources, [])
         # slit2 = Slit(Grating.x, center + slit_width*1.5, slit_width, num_sources, [])
         grating.slits.append(slit1)
@@ -109,8 +108,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 makeSources(slit, slit_height, 0, source_spacing)
 
             for slit in grating.slits:
-                for i in range(0, slit_height - 1):
-                    for source in slit[i].sources:
+                    for source in slit.sources:
                         grating.pointSourcePositions.append(source.y)
                         grating.pointSourceAmplitudes.append(source.amplitude)
 
@@ -127,8 +125,8 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 slit2_y = center - slit_width * 2.5 - 2 * i * slit_width
 
                 # Made slit 2 dimentional by making an array of slit height size, with identical slits.
-                slit_1 = [Slit(grating.x, slit1_y, slit_width, num_sources, []) for i in range(slit_height)]
-                slit_2 = [Slit(grating.x, slit2_y, slit_width, num_sources, []) for i in range(slit_height)]
+                slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
+                slit_2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
                 grating.slits.append(slit_1)
                 grating.slits.append(slit_2)
 
@@ -138,15 +136,9 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 makeSources(slit, slit_height, 0, source_spacing)
 
             for slit in grating.slits:
-                # for i in range(0, slit_height -1):
-                for source in slit[i].sources:
+                for source in slit.sources:
                     grating.pointSourcePositions.append(source.y)
                     grating.pointSourceAmplitudes.append(source.amplitude)
-
-            fh = open('pspos.txt','w')
-            for pos in grating.pointSourcePositions:
-                fh.write(str(pos)+'\n')
-            fh.close()
 
 
 def makeSources(Slit, SlitHeight, amplitude, spacing_type):
@@ -155,41 +147,38 @@ def makeSources(Slit, SlitHeight, amplitude, spacing_type):
         # makes sources in each slit array
         # TODO: make differences in y-dimention on slit array
 
-        for x in range(0, SlitHeight - 1):
+        if Slit.num_sources == 1:
 
-            if Slit[x].num_sources == 1:
+            testSource = PointSource(Slit.x, Slit.y + Slit.width / 2, amplitude)
+            Slit.sources.append(testSource)
 
-                testSource = PointSource(Slit[x].x, Slit[x].y + Slit[x].width / 2, amplitude)
-                Slit[x].sources.append(testSource)
+        elif Slit.num_sources == 2:
 
-            elif Slit[x].num_sources == 2:
+            spacing = Slit.width / (Slit.num_sources - 1)
+            ts1 = PointSource(Slit.x, Slit.y, amplitude)
+            ts2 = PointSource(Slit.x, Slit.y + Slit.width, amplitude)
+            Slit.sources.append(ts1)
+            Slit.sources.append(ts2)
 
-                spacing = Slit[x].width / (Slit[x].num_sources - 1)
-                ts1 = PointSource(Slit[x].x, Slit[x].y, amplitude)
-                ts2 = PointSource(Slit[x].x, Slit[x].y + Slit[x].width, amplitude)
-                Slit[x].sources.append(ts1)
-                Slit[x].sources.append(ts2)
+        else:
 
-            else:
+            spacing = Slit.width / (Slit.num_sources - 1)
+            ts_first = PointSource(Slit.x, Slit.y, amplitude)
+            Slit.sources.append(ts_first)
 
-                spacing = Slit[x].width / (Slit[x].num_sources - 1)
-                ts_first = PointSource(Slit[x].x, Slit[x].y, amplitude)
-                Slit[x].sources.append(ts_first)
+            y_position = spacing
 
-                y_position = spacing
+        for i in range(0, Slit.num_sources - 2):
+            Slit.sources.append(PointSource(Slit.x, Slit.y + y_position, amplitude))
+            y_position = y_position + spacing
 
-            for i in range(0, Slit[x].num_sources - 2):
-                Slit[x].sources.append(PointSource(Slit[x].x, Slit[x].y + y_position, amplitude))
-                y_position = y_position + spacing
-
-            ts_last = PointSource(Slit[x].x, Slit[x].y + Slit[x].width, amplitude)
-            Slit[x].sources.append(ts_last)
+        ts_last = PointSource(Slit.x, Slit.y + Slit.width, amplitude)
+        Slit.sources.append(ts_last)
 
     elif spacing_type.lower() == "random":
 
         # makes sources in each slit array
         # TODO: make differences in y-dimention on slit array
-        for x in range(0, SlitHeight - 1):
-            for point in range(0, Slit[x].num_sources):
-                y_position = random.rand(1, 1)[0][0] * Slit[x].width
-                Slit[x].sources.append(PointSource(Slit[x].x, Slit[x].y + y_position, amplitude))
+        for point in range(0, Slit.num_sources):
+            y_position = random.rand(1, 1)[0][0] * Slit.width
+            Slit.sources.append(PointSource(Slit.x, Slit.y + y_position, amplitude))
