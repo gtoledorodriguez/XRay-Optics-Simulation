@@ -4,7 +4,7 @@
 
 You will need a computer with an NVIDIA GPU that supports CUDA.
 
-You will also need to use Linux. WSL may work. Virtualization will likely not work unless it offers GPU passthrough
+You will also need to use Linux. WSL may work. Virtualization will likely not work unless it offers GPU passthrough.
 
 Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.
 
