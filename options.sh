@@ -18,6 +18,7 @@ if ! hash conda &> /dev/null; then
     exit 1
 fi
 
+# Ensure our conda environment is activated to avoid confusion
 case ${CONDA_DEFAULT_ENV} in
 ${DESIRED_CONDA_ENV})
     echo "Using '$DESIRED_CONDA_ENV' as conda environment."
