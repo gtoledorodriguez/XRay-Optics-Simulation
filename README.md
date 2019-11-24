@@ -14,6 +14,10 @@ Once installed, you should edit `/options.sh` to update the path of the CUDA bin
 
 By default, we use `/usr/local/cuda-9.1/bin/` because we have multiple versions and want to use that specific version of NVIDIA CUDA.
 
+## Editor/IDE
+
+We all used PyCharm to edit this code, but command-line will also work perfectly fine.
+
 ## Running this code
 
 Run `conda deactivate` to deactivate the `base` environment.
