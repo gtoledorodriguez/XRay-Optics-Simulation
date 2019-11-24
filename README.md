@@ -10,6 +10,10 @@ Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.
 
 Install the [NVIDIA CUDA Toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 
+Once installed, you should edit `/options.sh` to update the path of the CUDA binary folder. 
+
+By default, we use `/usr/local/cuda-9.1/bin/` because we have multiple versions and want to use that specific version of NVIDIA CUDA.
+
 ## Running this code
 
 Run `conda deactivate` to deactivate the `base` environment.
