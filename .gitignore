@@ -17,3 +17,7 @@ mprofile_*.dat
 
 # Test work dir
 out/
+
+*~
+*.swp
+*.swo
