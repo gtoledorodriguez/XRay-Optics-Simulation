@@ -1,3 +1,4 @@
+import random
 from numpy import random
 
 from optical_simulation.gratingLib.PointSource import PointSource
@@ -49,7 +50,11 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # place a slit in the middle of the Grating.
         # Note: the y position of a slit is defined as its endpoint closest to the x axis
         center = grating.length / 2
-        thisSlit = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
+
+        #get a random offset that will be added to the grating distance
+        offset = random.uniform(0.1, 0.8)
+
+        thisSlit = Slit(grating.x, (center - slit_width / 2) + offset, slit_width, num_sources, [])
         # thisSlit = Slit(Grating.x, center - slit_width/2, slit_width, num_sources, [])
         grating.slits.append(thisSlit)
         makeSources(thisSlit, slit_height, 0, source_spacing)
@@ -63,10 +68,25 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
     elif grating.numberOfSlits == 2:
         # Modeling Double Slit Diffraction
         # place two slits, with one 'slit_width' of distance between them
+        # also add a random offset to each slit. Make sure the offset does 
+        # not cause the grating distances to be greater that the overall 
+        # allocated grating size
+        try:
+            center = grating.length / 2
 
-        center = grating.length / 2
-        slit1 = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
-        slit2 = Slit(grating.x, center - slit_width / 2, slit_width, num_sources, [])
+            slit1_offset = random.uniform(0.1, 0.5)
+            slit2_offset = random.uniform(0.1, 0.5)
+
+            slit1_y = (center - slit_width/2) + slit1_offset
+            slit2_y = (center - slit_width/2) + slit2_offset
+
+            assert((slit1_y < center) and (slit2_y < center))
+
+        except AssertionError as e:
+            print(e)
+
+        slit1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
+        slit2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
         # slit1 = Slit(Grating.x, center - slit_width*1.5, slit_width, num_sources, [])
         # slit2 = Slit(Grating.x, center + slit_width*1.5, slit_width, num_sources, [])
         grating.slits.append(slit1)
@@ -93,15 +113,25 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
             i = 0
 
             while grating.numberOfSlits / 2 > i:
-                slit1_y = center + slit_width * 0.5 + 2 * i * slit_width
-                slit2_y = center - slit_width * 1.5 - 2 * i * slit_width
 
-                # Made slit 2 dimentional by making an array of slit height size, with identical slits.
-                slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
-                slit_2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
+                try:
+                    slit1_offset = random.uniform(0.1, 0.5)
+                    slit2_offset = random.uniform(0.1, 0.5)
+
+                    slit1_y = center + slit_width * 0.5 + 2 * i * slit_width + slit1_offset
+                    slit2_y = center - slit_width * 1.5 - 2 * i * slit_width + slit2_offset
+
+                    # Made slit 2 dimentional by making an array of slit height size, with identical slits.
+                    slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
+                    slit_2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
+
+                    assert((slit1_y < center) and (slit2_y < center))
+
+                except AssertionError as e:
+                    print(e)
+
                 grating.slits.append(slit_1)
                 grating.slits.append(slit_2)
-
                 i += 1
 
             for slit in grating.slits:
@@ -121,12 +151,23 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
             i = 0
 
             while (grating.numberOfSlits - 1) / 2 > i:
-                slit1_y = center + slit_width * 1.5 + 2 * i * slit_width
-                slit2_y = center - slit_width * 2.5 - 2 * i * slit_width
 
-                # Made slit 2 dimentional by making an array of slit height size, with identical slits.
-                slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
-                slit_2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
+                try:
+                    slit1_offset = random.uniform(0.1, 0.5)
+                    slit2_offset = random.uniform(0.1, 0.5)
+
+                    slit1_y = center + slit_width * 1.5 + 2 * i * slit_width + slit1_offset
+                    slit2_y = center - slit_width * 2.5 - 2 * i * slit_width + slit1_offset
+
+                    # Made slit 2 dimentional by making an array of slit height size, with identical slits.
+                    slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
+                    slit_2 = Slit(grating.x, slit2_y, slit_width, num_sources, [])
+
+                    assert((slit1_y < center) and (slit2_y < center))
+
+                except AssertionError as e:
+                    print(e)
+
                 grating.slits.append(slit_1)
                 grating.slits.append(slit_2)
 
