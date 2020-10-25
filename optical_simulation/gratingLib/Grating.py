@@ -46,7 +46,6 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
 
     if grating.numberOfSlits == 1:
         # Modeling Single Slit Diffraction
-
         # place a slit in the middle of the Grating.
         # Note: the y position of a slit is defined as its endpoint closest to the x axis
         center = grating.length / 2
@@ -74,6 +73,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         try:
             center = grating.length / 2
 
+            # generate random offsets and add them to each gating distance
             slit1_offset = random.uniform(0.1, 0.5)
             slit2_offset = random.uniform(0.1, 0.5)
 
@@ -115,6 +115,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
             while grating.numberOfSlits / 2 > i:
 
                 try:
+                    # generate random offsets and add them to each grating distance
                     slit1_offset = random.uniform(0.1, 0.5)
                     slit2_offset = random.uniform(0.1, 0.5)
 
@@ -153,11 +154,12 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
             while (grating.numberOfSlits - 1) / 2 > i:
 
                 try:
+                    # generate random offsets and add them to each grating distance
                     slit1_offset = random.uniform(0.1, 0.5)
                     slit2_offset = random.uniform(0.1, 0.5)
 
                     slit1_y = center + slit_width * 1.5 + 2 * i * slit_width + slit1_offset
-                    slit2_y = center - slit_width * 2.5 - 2 * i * slit_width + slit1_offset
+                    slit2_y = center - slit_width * 2.5 - 2 * i * slit_width + slit2_offset
 
                     # Made slit 2 dimentional by making an array of slit height size, with identical slits.
                     slit_1 = Slit(grating.x, slit1_y, slit_width, num_sources, [])
