@@ -158,11 +158,11 @@ if shouldUseRealisticParameters:
 current_path = os.path.abspath(os.path.dirname(__file__))
 image_output_path = os.path.join(current_path, 'image_output', *imageSubdirs)
 
-image_first_grating_path = os.path.join(image_output_path, '{}-first-grating.png'.format(imageSubdirs[-1]))
-image_second_grating_path = os.path.join(image_output_path, '{}-second-grating.png'.format(imageSubdirs[-1]))
-image_normalized_intensity_path = os.path.join(image_output_path,
+image_first_grating_path_3D = os.path.join(image_output_path, '{}-first-grating.png'.format(imageSubdirs[-1]))
+image_second_grating_path_3D = os.path.join(image_output_path, '{}-second-grating.png'.format(imageSubdirs[-1]))
+image_normalized_intensity_path_3D = os.path.join(image_output_path,
                                                '{}-normalized-intensity.png'.format(imageSubdirs[-1]))
-image_algorithm_runtime_path = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
+image_algorithm_runtime_path_3D = os.path.join(image_output_path, '{}-algorithm-runtime.png'.format(imageSubdirs[-1]))
 image_call_graph_path = os.path.join(image_output_path, '{}-call-graph.png'.format(imageSubdirs[-1]))
 
 
@@ -312,7 +312,7 @@ def main():
 
     table = axs[1].table(cellText=cell_text, colLabels=['#', 'Function', 'Runtime'],
                          loc='center').auto_set_column_width([0, 1, 2])
-    bar = axs[0].bar(x, runtimes)
+    bar = axs[0].bar3d(x, runtimes,1,1,1,1)
     plt.xticks(x, x)
     plt.xlabel('Function #', fontsize=20)
     plt.ylabel('Runtime (ms)', fontsize=20)
