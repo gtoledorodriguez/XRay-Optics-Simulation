@@ -110,7 +110,7 @@ def get_args_from_command_line() -> argparse.Namespace:
                         help='Should images be shown?')
 
     parser.add_argument('--brokenSlits',
-                        default=False,
+                        default=True,
                         type=bool,
                         help='Should we simulate broken slits?')
 
