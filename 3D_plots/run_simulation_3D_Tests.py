@@ -312,7 +312,7 @@ def main():
 
     table = axs[1].table(cellText=cell_text, colLabels=['#', 'Function', 'Runtime'],
                          loc='center').auto_set_column_width([0, 1, 2])
-    bar = axs[0].bar(x, runtimes)
+    bar = axs[0].bar3d(x, runtimes,1,1,1,1)
     plt.xticks(x, x)
     plt.xlabel('Function #', fontsize=20)
     plt.ylabel('Runtime (ms)', fontsize=20)
