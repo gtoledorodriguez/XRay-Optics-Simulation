@@ -4,6 +4,10 @@ from numpy import random
 from optical_simulation.gratingLib.PointSource import PointSource
 from optical_simulation.gratingLib.Slit import Slit
 
+#Adding the imports for 3D plots
+from mpl_toolkits import mplot3d
+import numpy as np
+import matplotlib.pyplot as plt
 
 class Grating:
 

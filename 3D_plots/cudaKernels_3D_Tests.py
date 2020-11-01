@@ -19,6 +19,9 @@ import math
 import numpy as np
 from numba import cuda
 
+#following imports for 3D plots
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
 
 # This function gets called for every observation point
 @cuda.jit
@@ -55,6 +58,7 @@ def intensityKernel(GratingSeparation, WaveNumber, sourcePoints, obsPoints, sour
     # initialize variables 
     phaseSum = 0
     ampSum = 0
+    gravity = 9.18 #Assuming everything is in feet. May need to change if not
 
     # Iterates over every source point for this observation point
     # TODO: Optimize code even more so we can increase number of threads and remove for loop
