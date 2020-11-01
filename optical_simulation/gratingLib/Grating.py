@@ -45,7 +45,7 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing, bro
     # function sets up different diffraction scenarios, like single slit diffraction, double slit diffraction, and Grating
     # diffraction
 
-    broken_slit_locs = random.sample(range(1, grating.numberOfSlits), 5) 
+    broken_slit_locs = random.sample(range(1, grating.numberOfSlits), 2) 
 
     if grating.numberOfSlits == 1:
         # Modeling Single Slit Diffraction
