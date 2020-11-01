@@ -183,8 +183,15 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing, bro
 
                 i += 1
 
-            for slit in grating.slits:
-                makeSources(slit, slit_height, 0, source_spacing)
+            #for slit in grating.slits:
+            #    makeSources(slit, slit_height, 0, source_spacing)
+
+            for idx, slit in enumerate(grating.slits):
+                if brokenSlits == True and idx in broken_slit_locs:
+                    makeSources(slit, slit_height / 2, 0, source_spacing)
+                    print("Broken slit added at slit index " + str(idx))
+                else:
+                    makeSources(slit, slit_height, 0, source_spacing)
 
             for slit in grating.slits:
                 for source in slit.sources:
