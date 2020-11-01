@@ -13,6 +13,9 @@ from time import strftime
 from time import time
 from typing import Tuple, List
 
+#Adding for 3d plots
+from mpl_toolkits import mplot3d
+
 import matplotlib.pyplot as plt
 import numpy as np
 from numba import cuda
@@ -266,7 +269,7 @@ def main():
     plt.xlabel('Position on First Grating (nm)', fontsize=25)
     plt.ylabel('Amplitude', fontsize=25)
     plt.title('Incident on First Grating', fontsize=30)
-    plt.savefig(image_first_grating_path, transparent=transparency)
+    plt.savefig(image_first_grating_path_3D, transparent=transparency)
     # plt.show()
 
     plt.figure(figsize=(15, 8))
@@ -274,7 +277,7 @@ def main():
     plt.xlabel('Position on Second Grating (nm)', fontsize=25)
     plt.ylabel('Normalized Intensity (lux)', fontsize=25)
     plt.title('Incident on Second Grating', fontsize=30)
-    plt.savefig(image_second_grating_path, transparent=transparency)
+    plt.savefig(image_second_grating_path_3D, transparent=transparency)
     # plt.show()
 
     maxIntensities2 = max(intensities2)
@@ -287,7 +290,7 @@ def main():
     plt.xlabel('Position on Observing Screen (nm)', fontsize=25)
     plt.ylabel('Normalized Intensity (lux)', fontsize=25)
     plt.title('Uniform Grating', fontsize=30)
-    plt.savefig(image_normalized_intensity_path, transparent=transparency)
+    plt.savefig(image_normalized_intensity_path_3D, transparent=transparency)
     # plt.show()
 
     last_time = initial_time
@@ -313,16 +316,16 @@ def main():
     plt.xticks(x, x)
     plt.xlabel('Function #', fontsize=20)
     plt.ylabel('Runtime (ms)', fontsize=20)
-    plt.savefig(image_algorithm_runtime_path, transparent=transparency)
+    plt.savefig(image_algorithm_runtime_path_3D, transparent=transparency)
 
     if shouldShowImages:
         plt.show()
 
     print("Image files:")
-    print(image_first_grating_path)
-    print(image_second_grating_path)
-    print(image_normalized_intensity_path)
-    print(image_algorithm_runtime_path)
+    print(image_first_grating_path_3D)
+    print(image_second_grating_path_3D)
+    print(image_normalized_intensity_path_3D)
+    print(image_algorithm_runtime_path_3D)
 
     print("Guppy3 mem usage info:")
     print(hpy().heap())
