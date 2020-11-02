@@ -1,0 +1,15 @@
+Within this folder there are mostly code that was used to learn how to do different 3D plots. The file was in Jupyter because originally I did not have access to the computer on campus.
+
+This file will be updated with any files changes/additions to this folder.
+
+To run .ipynb I recommend using Jupyter Notebook. You can get this by downloading Anaconda, on you own computer. This will download both python and Jupyter Notebook. Note: If you have take CS331 in python you should already have this.
+
+Note: If you get and error while running the file Types_of_Plots.ipynb this is most likely a line endings error. This may happen because a student currently working on it is taking a class (CS450) that made it so that line endings weren't being put in Github correctly. To fix you can manually change it on Notepad ++ or just google it.
+
+Folder Copies of Original Files:
+This file just contains copies of the files I will be modifiying to try to give it a 3D aspect. This is so incase I get an error I can't fix. I can easily go back to a script of code that actually works.
+
+The files CudaKernal_3D_Tests.py and Grating_3D_Test.py are the ones that have the changes. To test the code just copy and paste them to the ones in optical_simulation folder and the gratings folder. (This is why we have copies of original).
+
+
+
