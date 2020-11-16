@@ -1,6 +1,5 @@
 import random
 from numpy import random
-import random
 from optical_simulation.gratingLib.PointSource import PointSource
 from optical_simulation.gratingLib.Slit import Slit
 
