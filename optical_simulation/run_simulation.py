@@ -109,6 +109,11 @@ def get_args_from_command_line() -> argparse.Namespace:
                         type=bool,
                         help='Should images be shown?')
 
+    parser.add_argument('--brokenSlits',
+                        default=False,
+                        type=bool,
+                        help='Should we simulate broken slits?')
+
     parser.add_argument('--callGraph',
                         default=False,
                         type=bool,
@@ -140,6 +145,7 @@ U_0 = args.U_0
 imageSubdirs = args.imageSubdirs
 transparency = args.transparentImages
 shouldShowImages = args.showImages
+shouldSimulateBrokenSlits = args.brokenSlits
 shouldUseRealisticParameters = args.useRealisticParameters
 
 # Should we use realistic presets?
@@ -201,7 +207,7 @@ def main():
     print("Starting first grating")
 
     firstGrating = Grating(x=0, length=screen_length, numberOfSlits=numOfSlits, slitWidth=slitLength,
-                           slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                           slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType, brokenSlits=shouldSimulateBrokenSlits)
     add_time("firstGrating")
     print("First grating done")
 
@@ -210,7 +216,7 @@ def main():
     print("Starting second grating")
     secondGrating = Grating(x=second_grating_distance, length=screen_length, numberOfSlits=numOfSlits,
                             slitWidth=slitLength,
-                            slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType)
+                            slitHeight=slitHeight, sourcesPerSlit=numOfPointSources, sourceSpacing=spacingType, brokenSlits=shouldSimulateBrokenSlits)
     add_time("secondGrating")
     print("Second grating done")
 

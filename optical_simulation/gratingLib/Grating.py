@@ -1,13 +1,12 @@
 import random
 from numpy import random
-
 from optical_simulation.gratingLib.PointSource import PointSource
 from optical_simulation.gratingLib.Slit import Slit
 
 
 class Grating:
 
-    def __init__(self, x, length, numberOfSlits, slitWidth, slitHeight, sourcesPerSlit, sourceSpacing):
+    def __init__(self, x, length, numberOfSlits, slitWidth, slitHeight, sourcesPerSlit, sourceSpacing, brokenSlits):
 
         # all attributes are necessary for a grating to initialize itself and fill itself with slits and point sources
         self.x = x
@@ -16,6 +15,7 @@ class Grating:
         self.slitWidth = slitWidth
         self.slitHeight = slitHeight
         self.sourceSpacing = sourceSpacing
+        self.brokenSlits = brokenSlits
         self.sourcesPerSlit = sourcesPerSlit
         self.slits = []
         self.pointSourcePositions = []
@@ -23,7 +23,7 @@ class Grating:
         self.pointSourcePhases = []
 
         # fill grating with slits, makeSlits also fills slits with point sources
-        makeSlits(self, self.slitWidth, self.slitHeight, self.sourcesPerSlit, self.sourceSpacing)
+        makeSlits(self, self.slitWidth, self.slitHeight, self.sourcesPerSlit, self.sourceSpacing, self.brokenSlits)
 
     def addAmplitudes(self, newAmplitudes, newPhases):
 
@@ -37,12 +37,14 @@ class Grating:
             for source, newAmplitude in zip(slit.sources, newAmplitudes):
                 source.amplitude = newAmplitude
 
-
-def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
+#TODO FINISH BROKEN SLITS
+def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing, brokenSlits):
     # This function will create a set amount of slits based on the amount of slits a Grating class wants. Each slit is created with
     # 'num_sources' number of sources with a slit width of 'slit_width.' Depending on the amount of sources a grating wants, this
     # function sets up different diffraction scenarios, like single slit diffraction, double slit diffraction, and Grating
     # diffraction
+
+    broken_slit_locs = random.sample(range(1, grating.numberOfSlits), 10) 
 
     if grating.numberOfSlits == 1:
         # Modeling Single Slit Diffraction
@@ -105,7 +107,6 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
         # Modeling a Grating with numberOfSlits
         # this Grating is expected to have at least a slit_width of distance between each slit
         # numberOfSlits is a variable input and each should start from the center and built outwards
-
         if grating.numberOfSlits % 2 == 0:
 
             center = grating.length / 2
@@ -135,8 +136,14 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
                 grating.slits.append(slit_2)
                 i += 1
 
-            for slit in grating.slits:
-                makeSources(slit, slit_height, 0, source_spacing)
+            #for slit in grating.slits:
+            for idx, slit in enumerate(grating.slits):
+                if brokenSlits == True and idx in broken_slit_locs:
+                        makeSources(slit, slit_height / 2, 0, source_spacing)
+                        print("Broken slit added at slit index " + str(idx))
+                else:
+                    makeSources(slit, slit_height, 0, source_spacing)
+                
 
             for slit in grating.slits:
                     for source in slit.sources:
@@ -175,8 +182,15 @@ def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing):
 
                 i += 1
 
-            for slit in grating.slits:
-                makeSources(slit, slit_height, 0, source_spacing)
+            #for slit in grating.slits:
+            #    makeSources(slit, slit_height, 0, source_spacing)
+
+            for idx, slit in enumerate(grating.slits):
+                if brokenSlits == True and idx in broken_slit_locs:
+                    makeSources(slit, slit_height / 2, 0, source_spacing)
+                    print("Broken slit added at slit index " + str(idx))
+                else:
+                    makeSources(slit, slit_height, 0, source_spacing)
 
             for slit in grating.slits:
                 for source in slit.sources:
