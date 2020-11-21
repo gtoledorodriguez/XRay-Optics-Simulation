@@ -23,8 +23,8 @@ You will need a computer with an NVIDIA GPU that supports CUDA.You will also nee
 
 #### Software
 
-Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.
-Install the [NVIDIA CUDA Toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+Install [Conda](https://docs.conda.io/en/latest/) with Python 3.6 or greater.  
+Install the [NVIDIA CUDA Toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).  
 Once installed, you should edit `/options.sh` to update the path of the CUDA binary folder. By default, we use `/usr/local/cuda-9.1/bin/` because we have multiple versions and want to use that specific version of NVIDIA CUDA.
 
 ## Running this code
@@ -56,8 +56,8 @@ Run `conda env update -f environment.yml` in this directory to update Conda's en
 ## Notes on 3d_plots folder
 One of the tasks from Fall 2020 was to make the whole simulation 3-dimensional. Unfortunetly, there was not enough time left in the semester to finish. This task is a long-term goal and other groups should continue where we left off if they are willing to make it the theme for their entire semester. There can be many benefits to completing this task such as incorporating strut changes and more up to date computing hardware.
 
-## Contrbuting
-Previously to Fall 2020, there was no default way to keep track of semester progress that we were aware of beside GitHub. To reduce confusion and ease the transition process between semester groups, please follow this section to make the appropriate changes that will signify which repo is the current version and to let future students know what each section of code does. This is crucial since a lot of time can be wasted trying to figure out what other people did. 
+## Contributing
+Previously to Fall 2020, there was no default way to keep track of semester progress that we were aware of besides GitHub. To reduce confusion and ease the transition process between semester groups, please follow this section to make the appropriate changes that will signify which repo is the current version and to let future students know what each section of code does. This is crucial since a lot of time can be wasted trying to figure out what other people did. 
 
 1. Fork the previous semester's repository.
 2. Update the Introduction section of the README.md file to reflect your current semester. Specifically, change the semester description ***in bold***.
@@ -66,7 +66,7 @@ Previously to Fall 2020, there was no default way to keep track of semester prog
 
 ## Resources
 The Background folder in Google Drive  
-[Measuring Antimatter Gracity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)  
+[Measuring Antimatter Gravity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)  
 [What is an Interferometer?](https://www.ligo.caltech.edu/page/what-is-interferometer)  
 [Muonium Wikipedia Article](https://en.wikipedia.org/wiki/Muonium)  
 [Anaconda Cheat Sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)  
