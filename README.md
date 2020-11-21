@@ -64,12 +64,10 @@ Previously to Fall 2020, there was no default way to keep track of semester prog
 3. Add as much documentation as possible to your semester's Google Drive folder. Write everything clearly as if a complete stranger will need to read it one day.
 4. COMMENT YOUR CODE.
 
-
-
 ## Resources
-The Background folder in Google Drive
-[Measuring Antimatter Gracity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)
-[What is an Interferometer?](https://www.ligo.caltech.edu/page/what-is-interferometer)
-[Muonium Wikipedia Article](https://en.wikipedia.org/wiki/Muonium)
-[Anaconda Cheat Sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
-[CUDA Documentation](https://docs.nvidia.com/cuda/)
+The Background folder in Google Drive  
+[Measuring Antimatter Gracity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)  
+[What is an Interferometer?](https://www.ligo.caltech.edu/page/what-is-interferometer)  
+[Muonium Wikipedia Article](https://en.wikipedia.org/wiki/Muonium)  
+[Anaconda Cheat Sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)  
+[CUDA Documentation](https://docs.nvidia.com/cuda/)  
