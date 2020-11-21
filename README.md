@@ -53,10 +53,10 @@ Add the package to `environment.yml`.
 
 Run `conda env update -f environment.yml` in this directory to update Conda's environment from this file.
 
-## Notes on 3d plots folder
+## Notes on 3d_plots folder
 One of the tasks from Fall 2020 was to make the whole simulation 3-dimensional. Unfortunetly, there was not enough time left in the semester to finish. This task is a long-term goal and other groups should continue where we left off if they are willing to make it the theme for their entire semester. There can be many benefits to completing this task such as incorporating strut changes and more up to date computing hardware.
 
-##Contrbuting
+## Contrbuting
 Previously to Fall 2020, there was no default way to keep track of semester progress that we were aware of beside GitHub. To reduce confusion and ease the transition process between semester groups, please follow this section to make the appropriate changes that will signify which repo is the current version and to let future students know what each section of code does. This is crucial since a lot of time can be wasted trying to figure out what other people did. 
 
 1. Fork the previous semester's repository.
@@ -66,7 +66,7 @@ Previously to Fall 2020, there was no default way to keep track of semester prog
 
 
 
-##Resources
+## Resources
 The Background folder in Google Drive
 [Measuring Antimatter Gracity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)
 [What is an Interferometer?](https://www.ligo.caltech.edu/page/what-is-interferometer)
