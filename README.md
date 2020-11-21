@@ -53,7 +53,7 @@ Add the package to `environment.yml`.
 
 Run `conda env update -f environment.yml` in this directory to update Conda's environment from this file.
 
-## Notes on 3d_plots folder
+## Notes on 3d plots folder
 One of the tasks from Fall 2020 was to make the whole simulation 3-dimensional. Unfortunetly, there was not enough time left in the semester to finish. This task is a long-term goal and other groups should continue where we left off if they are willing to make it the theme for their entire semester. There can be many benefits to completing this task such as incorporating strut changes and more up to date computing hardware.
 
 ##Contrbuting
