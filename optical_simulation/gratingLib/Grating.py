@@ -37,7 +37,6 @@ class Grating:
             for source, newAmplitude in zip(slit.sources, newAmplitudes):
                 source.amplitude = newAmplitude
 
-#TODO FINISH BROKEN SLITS
 def makeSlits(grating, slit_width, slit_height, num_sources, source_spacing, brokenSlits):
     # This function will create a set amount of slits based on the amount of slits a Grating class wants. Each slit is created with
     # 'num_sources' number of sources with a slit width of 'slit_width.' Depending on the amount of sources a grating wants, this
