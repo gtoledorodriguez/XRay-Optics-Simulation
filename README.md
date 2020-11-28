@@ -1,9 +1,9 @@
 # X-Ray Optics Simulation
 
 ## Introduction
-This is the official repository for IPRO 497 - Antimatter Interferometer ***as of Fall 2020***. All code needed to run the Optival Simulation can be found here. Any students in this course should first fork the repository and update any time specific information pertaining to when they took the course. For more information on contributing, visit the contributing section of this document. For any other information regarding the course, please contact Dr. Daniel Kaplan or Dr. Derrick Mancini.
+This is the official repository for IPRO 497 - Antimatter Interferometer ***as of Fall 2020***. All code needed to run the Optical Simulation can be found here. Any students in this course should first fork this repository and update any time specific information pertaining to when they took the course. For more information on contributing, visit the contributing section of this document. For any other information regarding the course, please contact Dr. Daniel Kaplan or Dr. Derrick Mancini.
 
-The purpose of this IPRO is to experimentally answer if matter and antimatter repel each other throguh gravity. The methodwe use to answer this is to measure the effects of gravity on antimatter using muonium and seeing if antmatter responds to gravity in a measurable manner. The equipment to undergo this expirement is expensive and time consuming to make. A simulation of this experiment would prove useful because it is significantly easier to test prototypes or other changes without having to spend time or money on hardware that may or may not work.
+The purpose of this IPRO is to experimentally answer if matter and antimatter repel each other through gravity. The method we use to answer this is to measure the effects of gravity on antimatter using muonium and seeing if antimatter responds to gravity in a measurable manner. The equipment to undergo this expirement is expensive and time consuming to make. A simulation of this experiment would prove useful because it is significantly easier to test prototypes or other changes without having to spend time or money on hardware that may or may not work.
 
 ## Dependencies
 
@@ -29,7 +29,7 @@ Once installed, you should edit `/options.sh` to update the path of the CUDA bin
 
 ## Running this code
 
-Run `conda deactivate` to deactivate the `base` environment.
+Run `conda deactivate` to deactivate the `base` environment (if applicable).
 
 Run `conda env create -f environment.yml` in this directory to create a Conda environment with all dependencies specified in `environment.yml`.
 
@@ -54,7 +54,7 @@ Add the package to `environment.yml`.
 Run `conda env update -f environment.yml` in this directory to update Conda's environment from this file.
 
 ## Notes on 3d_plots folder
-One of the tasks from Fall 2020 was to make the whole simulation 3-dimensional. Unfortunetly, there was not enough time left in the semester to finish. This task is a long-term goal and other groups should continue where we left off if they are willing to make it the theme for their entire semester. There can be many benefits to completing this task such as incorporating strut changes and more up to date computing hardware.
+One of the tasks from Fall 2020 was to make the whole simulation 3-dimensional. This was one of many tasks we had planned that semester so unfortunetly, there was not enough time left to finish. This task is a long-term goal and other groups should continue where we left off if they are willing to make it the theme for their entire semester. There can be many benefits to completing this task such as incorporating strut changes and exploring more up to date computing hardware.
 
 ## Contributing
 Previously to Fall 2020, there was no default way to keep track of semester progress that we were aware of besides GitHub. To reduce confusion and ease the transition process between semester groups, please follow this section to make the appropriate changes that will signify which repo is the current version and to let future students know what each section of code does. This is crucial since a lot of time can be wasted trying to figure out what other people did. 
@@ -64,9 +64,11 @@ Previously to Fall 2020, there was no default way to keep track of semester prog
 3. Add as much documentation as possible to your semester's Google Drive folder. Write everything clearly as if a complete stranger will need to read it one day.
 4. COMMENT YOUR CODE.
 
+
 ## Resources
 The Background folder in Google Drive  
 [Measuring Antimatter Gravity with Muonium](https://www.epj-conferences.org/articles/epjconf/pdf/2015/14/epjconf_icnfp2014_05008.pdf)  
+[The Double-Slit Experiment](https://plus.maths.org/content/physics-minute-double-slit-experiment-0)  
 [What is an Interferometer?](https://www.ligo.caltech.edu/page/what-is-interferometer)  
 [Muonium Wikipedia Article](https://en.wikipedia.org/wiki/Muonium)  
 [Anaconda Cheat Sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)  
